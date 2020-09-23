@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const controllers = require('./controllers');
+const { errorHandler } = require('./middlewares/errorHandle');
 
 const app = express();
 
@@ -21,6 +22,8 @@ productRouter
   );
 
 app.use('/products', productRouter);
+
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 3001;
 

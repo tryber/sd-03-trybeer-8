@@ -1,32 +1,29 @@
-const getSession = require('./connection');
-
-const getTable = async (table) => (
-  getSession()
-    .then((session) => session.getSchema('Trybeer'))
-    .then((db) => db.getTable(table))
-);
+const connection = require('./connection');
 
 const getAll = async () => (
-  getTable('products')
-    .then((table) => table.select(['id', 'name', 'unit_price', 'image_url']).execute())
+  connection()
+    .then((db) => db
+      .getTable('products')
+      .select(['id', 'name', 'price', 'url_image'])
+      .execute())
     .then((results) => results.fetchAll())
     .then((products) => (
-      products.map(([id, name, unitPrice, imageUrl]) => ({
+      products.map(([id, name, price, urlImage]) => ({
         id,
         name,
-        unitPrice,
-        imageUrl,
+        price,
+        urlImage,
       }))
     ))
 );
 
-const findById = async (id) => (
-  getAll()
-    .then((products) => products
-      .find((product) => product.id === id))
-);
+// const findById = async (id) => (
+//   getAll()
+//     .then((products) => products
+//       .find((product) => product.id === id))
+// );
 
 module.exports = {
   getAll,
-  findById,
+  // findById,
 };
