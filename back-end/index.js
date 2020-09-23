@@ -4,6 +4,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
+const { userController } = require('./controller');
 const controllers = require('./controllers');
 const { errorHandler } = require('./middlewares/errorHandle');
 
@@ -22,6 +23,8 @@ productRouter
   );
 
 app.use('/products', productRouter);
+
+app.use('/register', userController);
 
 app.use(errorHandler);
 
