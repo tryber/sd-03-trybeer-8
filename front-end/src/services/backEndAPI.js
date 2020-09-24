@@ -1,9 +1,9 @@
 const axios = require('axios');
 
-const API_URL_BASE = 'http://localhost:3001';
+const URL = 'http://localhost:3001';
 
 const requestAPI = (method, route, body, token) => {
-  const API_URL = `${API_URL_BASE}${route}`;
+  const API_URL = `${URL}${route}`;
   const config = token
     ? { headers: { authorization: token } }
     : {};

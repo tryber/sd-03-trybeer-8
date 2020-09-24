@@ -6,6 +6,6 @@ export const formatPrice = (price) => price.toLocaleString(
 );
 
 export const calculateTotalPrice = (products) => products.reduce(
-  (acc, { unitPrice, quantity }) => acc + (unitPrice * quantity),
+  (acc, { price, quantity }) => acc + (price * quantity),
   zero,
 );

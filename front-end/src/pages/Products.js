@@ -9,7 +9,8 @@ const renderProducts = (products) => (
     <div className="cards">
       {products.map(({ name, price, urlImage }, index) => (
         <ProductCard
-          index={ index - 1 }
+          key={ name }
+          index={ index }
           data={ { name, price, urlImage } }
         />
       ))}
@@ -24,7 +25,7 @@ const Products = () => {
     redirect,
   } = useContext(ProductsContext);
 
-  if (redirect) return <Redirect to="/login" />;
+  // if (redirect) return <Redirect to="/login" />;
 
   return renderProducts(products);
 };
