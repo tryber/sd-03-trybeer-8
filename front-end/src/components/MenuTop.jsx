@@ -1,11 +1,10 @@
 import React from 'react';
 import '../style/MenuTop.css';
 
-const MenuTop = () => {
-  return (
+const MenuTop = ({ title }) => (
     <div className="menu-top">
       <h1 className="app-name" data-testid="top-title">
-        Trybeer
+        { title }
       </h1>
       <input id="hamburguer-input" className="hamburguer-input" type="checkbox" />
       <label htmlFor="hamburguer-input">
@@ -22,6 +21,6 @@ const MenuTop = () => {
       </ul>
     </div>
   );
-};
+
 
 export default MenuTop;

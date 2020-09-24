@@ -6,7 +6,7 @@ import MenuTop from './components/MenuTop';
 function App() {
   return (
     <div className="App">
-      <MenuTop />
+      <MenuTop title="Trybeer" />
       <Login />
     </div>
   );
