@@ -11,7 +11,4 @@ const getAll = rescue(async (_req, res) => {
 
 productsRouter.route('/').get(getAll);
 
-module.exports = {
-  getAll,
-  productsRouter,
-};
+module.exports = productsRouter;
