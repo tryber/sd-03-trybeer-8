@@ -1,11 +1,9 @@
 require('dotenv').config();
-const { userController, productController, loginController } = require('./controller');
-const { errorHandler } = require('./middlewares/errorHandle');
-
+const cors = require('cors');
 const express = require('express');
 const bodyParser = require('body-parser');
-const cors = require('cors');
-
+const { userController, productController, loginController } = require('./controller');
+const { errorHandler } = require('./middlewares/errorHandle');
 
 const app = express();
 
