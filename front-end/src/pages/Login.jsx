@@ -11,7 +11,8 @@ const postLogin = async (email, password, setErrorMessage) => {
       email,
       password,
     });
-    if (status === 200) {
+    const statusOk = 200;
+    if (status === statusOk) {
       localStorage.setItem('token', token);
     }
   } catch (err) {
@@ -24,7 +25,7 @@ const regexPassword = /\d{6,}/;
 
 const validateInputs = (state) => {
   const { email, password } = state;
-  let response = {
+  const response = {
     btnIsDisabled: false,
     emailMessage: '',
     passwordMessage: '',
@@ -64,23 +65,23 @@ const Login = () => {
         type="text"
         data-testid="email-input"
         name="email"
-        value={email}
-        onChange={(e) => onChange(e.target)}
+        value={ email }
+        onChange={ (e) => onChange(e.target) }
       />
       <span>{emailMessage}</span>
       <input
         type="password"
         data-testid="password-input"
         name="password"
-        value={password}
-        onChange={(e) => onChange(e.target)}
+        value={ password }
+        onChange={ (e) => onChange(e.target) }
       />
       <span>{passwordMessage}</span>
       <button
-        disabled={btnIsDisabled}
+        disabled={ btnIsDisabled }
         type="button"
         data-testid="signin-btn"
-        onClick={() => postLogin(email, password, setErrorMessage)}
+        onClick={ () => postLogin(email, password, setErrorMessage) }
       >
         Login
       </button>
