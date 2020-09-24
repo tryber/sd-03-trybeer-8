@@ -1,23 +1,19 @@
 const connection = require('./connection');
 
-/* const getUserByEmail = async (email) =>
-  connection()
-    .then((db) =>
-      db
-        .getTable('users')
-        .select(['id', 'name', 'email', 'password', 'role'])
-        .where('email = :email')
-        .bind('email', email)
-        .execute(),
-    )
-    .then((result) => result.fetchOne() || {})
-    .then(([id, name, email, password, role]) => ({
-      id,
-      name,
-      email,
-      password,
-      role,
-    })); */
+const getUserByEmail = async (email) => connection().then((db) => db
+  .getTable('users')
+  .select(['id', 'name', 'email', 'password', 'role'])
+  .where('email = :email')
+  .bind('email', email)
+  .execute())
+  .then((result) => result.fetchOne() || {})
+  .then(([id, name, userEmail, password, role]) => ({
+    id,
+    name,
+    email: userEmail,
+    password,
+    role,
+  }));
 
 const registerUser = async (name, email, password, role) => connection().then((db) => db
   .getTable('users')
@@ -25,4 +21,4 @@ const registerUser = async (name, email, password, role) => connection().then((d
   .values(name, email, password, role)
   .execute());
 
-module.exports = { /* getUserByEmail, */ registerUser };
+module.exports = { getUserByEmail, registerUser };

@@ -1,4 +1,5 @@
 const { userModel } = require('../models');
+const { generateJwt } = require('../middlewares/auth');
 
 // Referência regex para validação de email:
 // https://pt.stackoverflow.com/questions/1386/express%C3%A3o-regular-para-valida%C3%A7%C3%A3o-de-e-mail
@@ -28,4 +29,15 @@ const registerUser = async (name, email, password, role = 'client') => {
   return { name, email, password, role };
 };
 
-module.exports = { registerUser };
+// retorna o token do usuário logado
+const userLogin = async (email, password) => {
+  if (!email || !password) return { message: 'All fields must be filled' };
+
+  const user = await userModel.getUserByEmail(email);
+
+  if (!user || user.password !== password) return { message: 'Incorrect username or password' };
+
+  return generateJwt(user);
+};
+
+module.exports = { registerUser, userLogin };

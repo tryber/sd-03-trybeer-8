@@ -1,13 +1,14 @@
 require('dotenv/config');
 const express = require('express');
 const bodyParser = require('body-parser');
-const { userController } = require('./controller');
+const { userController, loginController } = require('./controller');
 const { errorHandler } = require('./middlewares/errorHandle');
 
 const app = express();
 app.use(bodyParser.json());
 
 app.use('/register', userController);
+app.use('/login', loginController);
 
 app.use(errorHandler);
 
