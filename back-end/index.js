@@ -1,11 +1,8 @@
 require('dotenv').config();
-
+const cors = require('cors');
 const express = require('express');
 const bodyParser = require('body-parser');
-const cors = require('cors');
-
-const { userController } = require('./controller');
-const { productController } = require('./controller');
+const { userController, productController, loginController } = require('./controller');
 const { errorHandler } = require('./middlewares/errorHandle');
 
 const app = express();
@@ -17,6 +14,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/products', productController);
 
 app.use('/register', userController);
+app.use('/login', loginController);
 
 app.use(errorHandler);
 
