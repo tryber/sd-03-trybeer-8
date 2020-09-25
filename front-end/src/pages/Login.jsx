@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
+import '../style/Register.css';
+import Footer from '../components/Footer';
 
-const postLogin = async (email, password, setErrorMessage) => {
+const postLogin = async (email, password, setErrorMessage, setIsRedirect) => {
   try {
     const {
       data: { token },
@@ -14,6 +16,7 @@ const postLogin = async (email, password, setErrorMessage) => {
     const statusOk = 200;
     if (status === statusOk) {
       localStorage.setItem('token', token);
+      setIsRedirect(true);
     }
   } catch (err) {
     setErrorMessage(err.message);
@@ -52,6 +55,7 @@ const Login = () => {
     emailMessage: '',
     passwordMessage: '',
   });
+  const [isRedirect, setIsRedirect] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const { btnIsDisabled, emailMessage, passwordMessage } = validations;
   const onChange = (e) => {
@@ -59,35 +63,70 @@ const Login = () => {
     setInputsValues(newState);
     setValidations(validateInputs(newState));
   };
+  if (isRedirect) return <Redirect to="/" />;
   return (
-    <form>
-      <input
-        type="text"
-        data-testid="email-input"
-        name="email"
-        value={ email }
-        onChange={ (e) => onChange(e.target) }
-      />
-      <span>{emailMessage}</span>
-      <input
-        type="password"
-        data-testid="password-input"
-        name="password"
-        value={ password }
-        onChange={ (e) => onChange(e.target) }
-      />
-      <span>{passwordMessage}</span>
-      <button
-        disabled={ btnIsDisabled }
-        type="button"
-        data-testid="signin-btn"
-        onClick={ () => postLogin(email, password, setErrorMessage) }
-      >
-        Login
-      </button>
-      <span>{errorMessage}</span>
-      {/* <Link to="/register" data-testid="no-account-btn">Não tenho conta</Link> */}
-    </form>
+    <div>
+      <div className="body">
+        <div className="body_form">
+          <center>
+            <h1 className="text-center">TRYBEER</h1>
+            <h2>LOGIN</h2>
+            <div className="div_form">
+              <form className="form">
+                <div className="form-group">
+                  <label htmlFor="email" className="txt_label">
+                    <input
+                      className="ipt_form"
+                      placeholder="NOME COMPLETO"
+                      type="text"
+                      data-testid="email-input"
+                      name="email"
+                      value={email}
+                      onChange={(e) => onChange(e.target)}
+                      required
+                    />
+                  </label>
+                  <span>{emailMessage}</span>
+                </div>
+                <div className="form-group">
+                  <label htmlFor="password" className="txt_label">
+                    <input
+                      className="ipt_form"
+                      placeholder="SENHA"
+                      type="password"
+                      data-testid="password-input"
+                      name="password"
+                      value={password}
+                      onChange={(e) => onChange(e.target)}
+                      required
+                    />
+                  </label>
+                  <span>{passwordMessage}</span>
+                </div>
+                <div className="div_btn">
+                  <button
+                    disabled={btnIsDisabled}
+                    type="button"
+                    data-testid="signin-btn"
+                    className="btn_ok"
+                    onClick={() => postLogin(email, password, setErrorMessage, setIsRedirect)}
+                  >
+                    Login
+                  </button>
+                  <span>{errorMessage}</span>
+                </div>
+                <div className="div_btn">
+                  <Link to="/register" data-testid="no-account-btn" className="btn_ok">
+                    Não tenho conta
+                  </Link>
+                </div>
+              </form>
+            </div>
+          </center>
+        </div>
+      </div>
+      <Footer />
+    </div>
   );
 };
 

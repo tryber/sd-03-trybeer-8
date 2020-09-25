@@ -1,14 +1,24 @@
 import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import SignupPage from './pages/Register';
 import Login from './pages/Login';
-import './App.css';
-import MenuTop from './components/MenuTop';
 
 function App() {
   return (
-    <div className="App">
-      <MenuTop title="Trybeer" />
-      <Login />
-    </div>
+    <Router>
+      <Switch>
+        <Route path="/register">
+          <SignupPage />
+        </Route>
+        <Route path="/login">
+          <Login />
+        </Route>
+        <Route path="/">
+          <HomePage />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 

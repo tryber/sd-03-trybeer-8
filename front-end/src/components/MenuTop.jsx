@@ -7,8 +7,8 @@ const MenuTop = ({ title }) => (
     <h1 className="app-name" data-testid="top-title">
       {title}
     </h1>
+    <input id="hamburguer-input" className="hamburguer-input" type="checkbox" />
     <label htmlFor="hamburguer-input">
-      <input id="hamburguer-input" className="hamburguer-input" type="checkbox" />
       <div className="menu">
         <span className="hamburguer" />
       </div>
