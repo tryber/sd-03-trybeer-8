@@ -15,7 +15,7 @@ const postLogin = async (email, password, setErrorMessage, setIsRedirect) => {
     });
     const statusOk = 200;
     if (status === statusOk) {
-      localStorage.setItem('user', data);
+      localStorage.setItem('user', JSON.stringify(data));
       setIsRedirect({isRedirect: true, role: data.role});
     }
   } catch (err) {
