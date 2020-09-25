@@ -17,4 +17,4 @@ const loggedUser = rescue(async (req, res) => {
 
 loginRouter.route('/').post(loggedUser);
 
-module.exports = loggedUser;
+module.exports = loginRouter;

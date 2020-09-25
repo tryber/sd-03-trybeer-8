@@ -4,7 +4,7 @@ const { generateJwt } = require('../middlewares/auth');
 // Referência regex para validação de email:
 // https://pt.stackoverflow.com/questions/1386/express%C3%A3o-regular-para-valida%C3%A7%C3%A3o-de-e-mail
 const regexName = /[a-zA-Z\s]{12,}/;
-const regexEmail = /^[a-zA-Z0-9._]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
+const regexEmail = /\S+@\w+\.\w{2,6}(\.\w{2})?/;
 const regexPassword = /\d{6,}/;
 
 const validateEntries = (name, email, password) => {
@@ -37,7 +37,11 @@ const userLogin = async (email, password) => {
 
   if (!user || user.password !== password) return { message: 'Incorrect username or password' };
 
-  return generateJwt(user);
+  const { token } = generateJwt(user);
+
+  const { role, name } = user;
+
+  return { name, email, role, token };
 };
 
 module.exports = { registerUser, userLogin };

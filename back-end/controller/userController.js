@@ -1,7 +1,6 @@
 const { Router } = require('express');
 const rescue = require('express-rescue');
 const { userService } = require('../services');
-const { validateJWT } = require('../middlewares/auth');
 
 const usersRouter = Router();
 
@@ -17,6 +16,6 @@ const NewUser = rescue(async (req, res, next) => {
   return res.status(201).json(registeredUser);
 });
 
-usersRouter.route('/').post(validateJWT, NewUser);
+usersRouter.route('/').post(NewUser);
 
 module.exports = usersRouter;
