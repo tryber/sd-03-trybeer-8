@@ -1,6 +1,7 @@
 import React from 'react';
-import QuantityHandler from '../utils/QuantityHandler';
+// import QuantityHandler from '../utils/QuantityHandler';
 import { formatPrice } from '../utils/utils';
+import PropTypes from 'prop-types';
 
 const ProductCard = ({ index, data: { name, price, urlImage } }) => (
   <div className="product-card">
@@ -8,7 +9,7 @@ const ProductCard = ({ index, data: { name, price, urlImage } }) => (
       data-testid={ `${index}-product-price` }
       className="price"
     >
-      // formatPrice(price)
+      {formatPrice(price)}
     </p>
     <div className="product-image">
       <img
@@ -25,14 +26,14 @@ const ProductCard = ({ index, data: { name, price, urlImage } }) => (
     </p>
   </div>
 );
-
 // <QuantityHandler index={ index } />
+
 // ProductCard.propTypes = {
 //   index: PropTypes.number,
 //   data = {
 //     name: PropTypes.string,
 //     price: PropTypes.number,
-//     urlImage: PropTypes.any,
+//     urlImage: PropTypes.string,
 //   }
 // };
 

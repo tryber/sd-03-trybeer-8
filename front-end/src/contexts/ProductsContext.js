@@ -1,8 +1,8 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import requestAPI from '../services/backEndAPI';
 
 const zero = 0;
-
 const handleLocalStorage = (quantities) => {
   const storedProducts = (JSON.parse(localStorage.getItem('products')) || [])
     .map(({ id, name, price }, i) => ({
@@ -30,6 +30,20 @@ const getInitialQuantities = (products) => {
   return storedProducts.map(({ quantity }) => quantity);
 };
 
+const handleProducts = async (products, setProducts, setQuantities, setRedirect) => {
+  if (!products || products.length === zero) {
+    try {
+      const { token } = JSON.parse(localStorage.getItem('user')) || {};
+      const { data: products1 } = await requestAPI('GET', '/products', null, token);
+      const quantities = getInitialQuantities(products);
+      setProducts(products1);
+      setQuantities(quantities);
+    } catch (e) {
+      setRedirect(true);
+    }
+  }
+};
+
 const updateQuantities = (quantities, setQuantities, productIndex, operation) => {
   const newQuantities = quantities.map((quantity, i) => {
     if (i === productIndex) {
@@ -47,32 +61,33 @@ const updateQuantities = (quantities, setQuantities, productIndex, operation) =>
 const ProductsContext = createContext();
 
 const ProductsProvider = ({ children }) => {
-  const products = useState([]);
+  const [products, setProducts] = useState([]);
   const [quantities, setQuantities] = useState(getInitialQuantities(products));
-  const redirect = useState(false);
+  const [redirect, setRedirect] = useState(false);
 
-  const storeQuantities = (quantities) => handleLocalStorage(quantities);
+  const storeQuantities = (quantities1) => handleLocalStorage(quantities1);
+
+  const loadProducts = async () => handleProducts(
+    products,
+    setProducts,
+    setQuantities,
+    setRedirect,
+  );
 
   const increaseQuantity = (productIndex) => updateQuantities(quantities, setQuantities, productIndex, 'increase');
 
   const decreaseQuantity = (productIndex) => updateQuantities(quantities, setQuantities, productIndex, 'decrease');
 
-  const handleProducts = async (setProducts, setRedirect) => {
-    if (!products || products.length === zero) {
-      try {
-        const { token } = JSON.parse(localStorage.getItem('user')) || {};
-        await requestAPI('GET', '/products', null, token);
-        setProducts(products);
-        setQuantities(quantities);
-      } catch (e) {
-        setRedirect(true);
-      }
-    }
-  };
+  useEffect(
+    () => {
+      storeQuantities(quantities);
+    },
+  );
 
   const context = {
     products,
-    storeQuantities,
+    loadProducts,
+    quantities,
     increaseQuantity,
     decreaseQuantity,
     redirect,
@@ -80,13 +95,13 @@ const ProductsProvider = ({ children }) => {
 
   return (
     <ProductsContext.Provider value={ context }>
-      { children }
+      {children}
     </ProductsContext.Provider>
   );
 };
 
-// ProductsContext.propTypes = {
-//   children: PropTypes.func,
-// };
+ProductsContext.propTypes = {
+  children: PropTypes.isRequired,
+};
 
 export { ProductsContext, ProductsProvider };

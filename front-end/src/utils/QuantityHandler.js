@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
 import { ProductsContext } from '../contexts/ProductsContext';
 
 const QuantityHandler = ({ index }) => {
@@ -35,8 +36,8 @@ const QuantityHandler = ({ index }) => {
   );
 };
 
-// QuantityHandler.propTypes = {
-//   index: PropTypes.number,
-// };
+QuantityHandler.propTypes = {
+  index: PropTypes.isRequired,
+};
 
 export default QuantityHandler;
