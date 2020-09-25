@@ -7,7 +7,7 @@ import Footer from '../components/Footer';
 const postLogin = async (email, password, setErrorMessage, setIsRedirect) => {
   try {
     const {
-      data: { token },
+      data,
       status,
     } = await axios.post('http://localhost:3001/login', {
       email,
@@ -15,8 +15,8 @@ const postLogin = async (email, password, setErrorMessage, setIsRedirect) => {
     });
     const statusOk = 200;
     if (status === statusOk) {
-      localStorage.setItem('token', token);
-      setIsRedirect(true);
+      localStorage.setItem('user', data);
+      setIsRedirect({isRedirect: true, role: data.role});
     }
   } catch (err) {
     setErrorMessage(err.message);
@@ -55,7 +55,7 @@ const Login = () => {
     emailMessage: '',
     passwordMessage: '',
   });
-  const [isRedirect, setIsRedirect] = useState(false);
+  const [isRedirect, setIsRedirect] = useState({isRedirect: false, role: ''});
   const [errorMessage, setErrorMessage] = useState('');
   const { btnIsDisabled, emailMessage, passwordMessage } = validations;
   const onChange = (e) => {
@@ -63,7 +63,10 @@ const Login = () => {
     setInputsValues(newState);
     setValidations(validateInputs(newState));
   };
-  if (isRedirect) return <Redirect to="/" />;
+  if (isRedirect.isRedirect) {
+    if (isRedirect.role === 'client') return <Redirect to="/products" />
+    return <Redirect to="/admin/orders" />
+  };
   return (
     <div>
       <div className="body">
@@ -75,9 +78,10 @@ const Login = () => {
               <form className="form">
                 <div className="form-group">
                   <label htmlFor="email" className="txt_label">
+                    Email
                     <input
                       className="ipt_form"
-                      placeholder="NOME COMPLETO"
+                      placeholder="Email"
                       type="text"
                       data-testid="email-input"
                       name="email"
@@ -90,9 +94,10 @@ const Login = () => {
                 </div>
                 <div className="form-group">
                   <label htmlFor="password" className="txt_label">
+                    Password
                     <input
                       className="ipt_form"
-                      placeholder="SENHA"
+                      placeholder="Senha"
                       type="password"
                       data-testid="password-input"
                       name="password"
@@ -111,7 +116,7 @@ const Login = () => {
                     className="btn_ok"
                     onClick={() => postLogin(email, password, setErrorMessage, setIsRedirect)}
                   >
-                    Login
+                    ENTRAR
                   </button>
                   <span>{errorMessage}</span>
                 </div>

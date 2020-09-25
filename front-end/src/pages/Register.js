@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
+import axios from 'axios';
 import Footer from '../components/Footer';
 import '../style/Register.css';
 
@@ -59,20 +60,23 @@ function Register() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const response = await fetch('http://localhost:3001/register', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
+    const role = seller ? 'administrator' : 'client';
+    try {
+      const { data } = await axios.post('http://localhost:3001/register', {
         name: name.text,
         email: email.text,
         password: password.text,
-        seller,
-      }),
-    });
-    const user = await response.json();
-    const page = user.role === 'administrator' ? '/admin/orders' : '/products';
-    if (user.err) setError(user.err.message);
-    else setRedirectTo(page);
+        role,
+      })
+      const page = data.role === 'administrator' ? '/admin/orders' : '/products';
+      setRedirectTo(page);
+    } catch (err) {
+      if (err.message === 'Request failed with status code 409'){
+        setError('E-mail already in database.');
+      } else {
+        setError(err.message);
+      }
+    }
   }
 
   if (redirectTo !== '/') return <Redirect to={ redirectTo } />;
@@ -90,13 +94,14 @@ function Register() {
               <form className="form" method="POST" onSubmit={ handleSubmit }>
                 <div className="form-group">
                   <label htmlFor="name" className="txt_label">
+                    Nome Completo
                     <input
                       data-testid="signup-name"
                       className="ipt_form"
                       type="text"
                       name="name"
                       id="name"
-                      placeholder="NOME COMPLETO"
+                      placeholder="Nome Completo"
                       onChange={ (e) => handleNameChange(e.target.value) }
                       value={ name.text }
                       required
@@ -105,13 +110,14 @@ function Register() {
                 </div>
                 <div className="form-group">
                   <label htmlFor="email" className="txt_label">
+                    Email
                     <input
                       data-testid="signup-email"
                       className="ipt_form"
                       type="email"
                       name="email"
                       id="email"
-                      placeholder="E-MAIL VÁLIDO"
+                      placeholder="Email Valido"
                       onChange={ (e) => handleEmailChange(e.target.value) }
                       value={ email.text }
                       required
@@ -120,13 +126,14 @@ function Register() {
                 </div>
                 <div className="form-group">
                   <label htmlFor="password" className="txt_label">
+                    Password
                     <input
                       data-testid="signup-password"
                       className="ipt_form"
                       type="password"
                       name="password"
                       id="password"
-                      placeholder="SENHA"
+                      placeholder="Senha"
                       onChange={ (e) => handlePasswordChange(e.target.value) }
                       value={ password.text }
                       required
@@ -144,11 +151,11 @@ function Register() {
                       onChange={ (e) => setSeller(e.target.checked) }
                       value={ seller }
                     />
-                    QUERO VENDER
+                    Quero Vender
                   </label>
                 </div>
                 <div className="div_btn">
-                  <input type="submit" value="Registrar" disabled={ !activeSubmit } data-testid="signup-btn" className="btn_ok" />
+                  <input type="submit" value="Cadastrar" disabled={ !activeSubmit } data-testid="signup-btn" className="btn_ok" />
                 </div>
               </form>
             </div>

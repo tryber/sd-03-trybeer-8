@@ -15,7 +15,7 @@ function App() {
           <Login />
         </Route>
         <Route path="/">
-          <HomePage />
+          <Login />
         </Route>
       </Switch>
     </Router>

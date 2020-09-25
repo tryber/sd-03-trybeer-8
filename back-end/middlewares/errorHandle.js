@@ -1,5 +1,6 @@
 const errorHandler = (error, _req, res, _next) => {
-  if (error.message && error.code === 'conflict') {
+  console.log(error);
+  if (error.info.code === 1062) {
     return res.status(409).json({ message: error.message });
   }
 

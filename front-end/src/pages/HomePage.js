@@ -1,12 +1,9 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 import MenuTop from '../components/MenuTop';
 
 function HomePage() {
-  return (
-    <div>
-      <MenuTop title="Trybeer - Grupo 8" />
-    </div>
-  );
+  return <Redirect to="/login" />;
 }
 
 export default HomePage;

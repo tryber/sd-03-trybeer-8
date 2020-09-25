@@ -37,7 +37,11 @@ const userLogin = async (email, password) => {
 
   if (!user || user.password !== password) return { message: 'Incorrect username or password' };
 
-  return generateJwt(user);
+  const { token } = generateJwt(user);
+
+  const { role, name } = user;
+
+  return { name, email, role, token };
 };
 
 module.exports = { registerUser, userLogin };

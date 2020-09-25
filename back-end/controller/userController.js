@@ -17,6 +17,6 @@ const NewUser = rescue(async (req, res, next) => {
   return res.status(201).json(registeredUser);
 });
 
-usersRouter.route('/').post(validateJWT, NewUser);
+usersRouter.route('/').post(NewUser);
 
 module.exports = usersRouter;
