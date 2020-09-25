@@ -8,7 +8,7 @@ const ProductCard = ({ index, data: { name, price, urlImage } }) => (
       data-testid={ `${index}-product-price` }
       className="price"
     >
-      // formatPrice(price)
+      {formatPrice(price)}
     </p>
     <div className="product-image">
       <img

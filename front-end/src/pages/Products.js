@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import { ProductsContext, ProductsProvider } from '../contexts/ProductsContext';
 import ProductCard from '../components/ProductCard';
@@ -8,25 +8,22 @@ const renderProducts = (products) => (
   <div>
     <div className="cards">
       {products.map(({ name, price, urlImage }, index) => (
-        <ProductCard
-          key={ name }
-          index={ index }
-          data={ { name, price, urlImage } }
-        />
+        <ProductCard key={name} index={index} data={{ name, price, urlImage }} />
       ))}
     </div>
-    <ShoppingCartButton />
+    {/* <ShoppingCartButton /> */}
   </div>
 );
 
 const Products = () => {
-  const {
-    products,
-    redirect,
-  } = useContext(ProductsContext);
+  const { products, redirect, getProducts } = useContext(ProductsContext);
+
+  useEffect(() => {
+    getProducts();
+  }, []);
 
   // if (redirect) return <Redirect to="/login" />;
-
+  if (products.length === 0) return <span>loading</span>;
   return renderProducts(products);
 };
 
