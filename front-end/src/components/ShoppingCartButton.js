@@ -24,7 +24,7 @@ const ShoppingCartButton = () => {
             <div className="button-content">
               <div>Ver carrinho</div>
               <div data-testid="checkout-bottom-btn-value">
-                {formatPrice(calculateTotalPrice(products))}
+                {/* formatPrice(calculateTotalPrice(products))*/}
               </div>
             </div>
           </button>

@@ -71,7 +71,7 @@ const ProductsProvider = ({ children }) => {
   };
 
   const context = {
-    handleProducts,
+    products,
     storeQuantities,
     increaseQuantity,
     decreaseQuantity,
