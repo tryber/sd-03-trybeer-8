@@ -6,14 +6,10 @@ const getUserByEmail = async (email) => connection().then((db) => db
   .where('email = :email')
   .bind('email', email)
   .execute())
-  .then((result) => result.fetchOne() || {})
-  .then(([id, name, userEmail, password, role]) => ({
-    id,
-    name,
-    email: userEmail,
-    password,
-    role,
-  }));
+  .then((result) => result.fetchOne())
+  .then(([id, name, userEmail, password, role] = []) => (
+    id ? { id, name, email: userEmail, password, role } : 'usuário não encontrado'
+  ));
 
 const registerUser = async (name, email, password, role) => connection().then((db) => db
   .getTable('users')
@@ -21,4 +17,11 @@ const registerUser = async (name, email, password, role) => connection().then((d
   .values(name, email, password, role)
   .execute());
 
-module.exports = { getUserByEmail, registerUser };
+const editUser = async (name, email) => connection().then((db) => db.getTable('users')
+  .update()
+  .set('name', name)
+  .where('email = :email')
+  .bind('email', email)
+  .execute());
+
+module.exports = { getUserByEmail, registerUser, editUser };
