@@ -67,7 +67,6 @@ const ProductsProvider = ({ children }) => {
   const [quantities, setQuantities] = useState(getInitialQuantities(products));
   const [redirect, setRedirect] = useState(false);
 
-<<<<<<< HEAD
   const storeQuantities = (quantities1) => handleLocalStorage(quantities1);
 
   const loadProducts = async () => handleProducts(
@@ -76,9 +75,6 @@ const ProductsProvider = ({ children }) => {
     setQuantities,
     setRedirect,
   );
-=======
-  const storeQuantities = (quantitie) => handleLocalStorage(quantitie);
->>>>>>> 9589d720b6220a715490fd96dc4b73488632a8e3
 
   const increaseQuantity = (productIndex) => updateQuantities(quantities, setQuantities, productIndex, 'increase');
 
