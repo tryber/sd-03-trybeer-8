@@ -4,9 +4,11 @@ import '../style/MenuTop.css';
 
 const MenuTop = ({ title }) => (
   <div className="menu-top">
-    <h1 className="app-name" data-testid="top-title">
-      {title}
-    </h1>
+    <center>
+      <h1 className="app-name" data-testid="top-title">
+        {title}
+      </h1>
+    </center>
     <input id="hamburguer-input" className="hamburguer-input" type="checkbox" />
     <label htmlFor="hamburguer-input">
       <div className="menu">
