@@ -122,7 +122,7 @@ const Login = () => {
                 </div>
                 <div className="div_btn">
                   <Link to="/register" data-testid="no-account-btn" className="btn_ok">
-                    Não tenho conta
+                    Ainda não tenho conta
                   </Link>
                 </div>
               </form>
