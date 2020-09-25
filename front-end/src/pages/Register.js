@@ -67,11 +67,11 @@ function Register() {
         email: email.text,
         password: password.text,
         role,
-      })
+      });
       const page = data.role === 'administrator' ? '/admin/orders' : '/products';
       setRedirectTo(page);
     } catch (err) {
-      if (err.message === 'Request failed with status code 409'){
+      if (err.message === 'Request failed with status code 409') {
         setError('E-mail already in database.');
       } else {
         setError(err.message);
