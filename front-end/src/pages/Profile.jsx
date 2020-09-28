@@ -3,6 +3,25 @@ import MenuTop from '../components/MenuTop';
 import Footer from '../components/Footer';
 import { useState } from 'react';
 
+const putLogin = (username, userEmail) => {
+  try {
+    const {
+      data,
+      status,
+    } = await axios.put('http://localhost:3001/login', {
+      username,
+      userEmail,
+    });
+    const statusOk = 200;
+    if (status === statusOk) {
+      // localStorage.setItem('user', JSON.stringify(data));
+      // setIsRedirect({isRedirect: true, role: data.role});
+    }
+  } catch (err) {
+    setErrorMessage(err.message);
+  }
+}
+
 const Profile = () => {
   const [userEmail, setUserEmail] = useState('');
   const [userName, setUserName] = useState('');
@@ -59,7 +78,7 @@ const Profile = () => {
                     data-testid="data-testid="
                     profile-save-btn
                     className="btn_ok"
-                    // onClick={() => postLogin(email, password, setErrorMessage, setIsRedirect)}
+                    onClick={() => putLogin(userName, userEmail)}
                   >
                     Salvar
                   </button>
