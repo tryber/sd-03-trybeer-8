@@ -14,9 +14,6 @@ const editUser = rescue(async (req, res, next) => {
     return next(editedUser);
   }
 
-  // const { id, password: usersecret, ...user } = editedUser;
-  // const userWithToken = { ...user, token };
-
   res.status(200).json(editedUser);
 });
 
