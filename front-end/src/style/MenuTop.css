@@ -64,7 +64,6 @@
 }
 
 .hamburguer-input {
-  display: none;
 }
 
 .hamburguer-input:checked ~ label .menu {

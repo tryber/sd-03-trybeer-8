@@ -12,8 +12,8 @@ const MenuTop = ({ title }) => {
         {title}
       </h1>
     </center>
-    <input id="hamburguer-input" className="hamburguer-input" type="checkbox" onChange={() => setIsMenuActive(!isMenuActive)}/>
-    <label data-testid="top-hamburguer" htmlFor="hamburguer-input">
+    <input id="hamburguer-input" className="hamburguer-input" data-testid="top-hamburguer" type="checkbox" onChange={() => setIsMenuActive(!isMenuActive)}></input>
+    <label  htmlFor="hamburguer-input">
       <div className="menu">
         <span className="hamburguer" />
       </div>

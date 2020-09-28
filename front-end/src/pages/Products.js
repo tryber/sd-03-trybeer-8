@@ -23,7 +23,7 @@ const Products = () => {
 
   useEffect(() => {
     getProducts();
-  });
+  }, []);
 
   // if (redirect) return <Redirect to="/login" />;
   if (products.length === zero) return <span>loading</span>;
