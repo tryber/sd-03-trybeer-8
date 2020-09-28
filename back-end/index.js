@@ -2,7 +2,7 @@ require('dotenv').config();
 const cors = require('cors');
 const express = require('express');
 const bodyParser = require('body-parser');
-const { userController, productController, loginController, profileController } = require('./controller');
+const { userController, productController, loginController, profileController, saleController } = require('./controller');
 const { errorHandler } = require('./middlewares/errorHandle');
 
 const app = express();
@@ -15,6 +15,7 @@ app.use('/products', productController);
 app.use('/register', userController);
 app.use('/login', loginController);
 app.use('/profile', profileController);
+app.use('/checkout', saleController);
 
 app.use(errorHandler);
 
