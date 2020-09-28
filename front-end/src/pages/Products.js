@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
-import { Redirect } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom';
 import { ProductsContext, ProductsProvider } from '../contexts/ProductsContext';
-import ProductCard  from '../components/ProductCard';
+import ProductCard from '../components/ProductCard';
 import MenuTop from '../components/MenuTop';
 // import ShoppingCartButton from '../components/ShoppingCartButton';
 
@@ -23,7 +23,7 @@ const Products = () => {
 
   useEffect(() => {
     getProducts();
-  }, []);
+  }, [getProducts]);
 
   // if (redirect) return <Redirect to="/login" />;
   if (products.length === zero) return <span>loading</span>;
