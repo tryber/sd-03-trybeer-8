@@ -100,16 +100,3 @@ h2 {
 .div_btn {
   margin: 0 auto;
 }
-
-.footer {
-  background-color: black;
-  bottom: 0;
-  color: white;
-  font-size: 12px;
-  height: 5%;
-  letter-spacing: 2px;
-  padding-top: 15px;
-  position: absolute;
-  text-align: center;
-  width: 100%;
-}
