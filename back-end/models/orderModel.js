@@ -8,8 +8,7 @@ const updateTable = async (tableName, id, newPropName, newPropValue) => (
       .where('id = :id')
       .bind('id', id)
       .set(newPropName, newPropValue)
-      .execute(),
-    )
+      .execute())
 );
 
 const getSalesWithoutProducts = async () => (
@@ -17,8 +16,7 @@ const getSalesWithoutProducts = async () => (
     .then((db) => db
       .getTable('sales')
       .select(['user_id', 'total_price', 'delivery_address', 'delivery_number', 'sale_date', 'status'])
-      .execute(),
-    )
+      .execute())
     .then((results) => results.fetchAll())
     .then((orders) => (
       orders.map(([id, address, total, date, status, userId]) => ({
@@ -32,13 +30,25 @@ const getSalesWithoutProducts = async () => (
     ))
 );
 
+const list = (products) => products.map(([
+  productId,
+  quantity,
+  name,
+  price,
+  totalProductPrice,
+]) => ({
+  productId,
+  quantity,
+  name,
+  price,
+  totalProductPrice,
+}));
+
 const getProductsForEachSale = async (ids) => (
-  Promise.all(ids.map((id) =>
-    getSession()
-      .then((session) =>
-        session
-          .sql(
-            `SELECT 
+  Promise.all(ids.map((id) => connection()
+    .then((session) => session
+      .sql(
+        `SELECT 
             sp.product_id, 
             sp.quantity, 
             (SELECT p.name FROM Trybeer.products p WHERE sp.product_id = p.id),
@@ -47,26 +57,12 @@ const getProductsForEachSale = async (ids) => (
             FROM
             Trybeer.sales_products sp
             WHERE
-            order_id = ?;`
-          )
-          .bind(id)
-          .execute(),
+            order_id = ?;`,
       )
-      .then((results) => results.fetchAll())
-      .then((products) => products.map(([
-        productId,
-        quantity,
-        name,
-        price,
-        totalProductPrice,
-      ]) => ({
-        productId,
-        quantity,
-        name,
-        price,
-        totalProductPrice,
-      }))),
-  ))
+      .bind(id)
+      .execute())
+    .then((results) => results.fetchAll())
+    .then(list)))
 );
 
 const getAll = async () => {
@@ -83,44 +79,40 @@ const getAll = async () => {
 const getByUserId = async (userId) => (
   getAll()
     .then((sales) => sales
-      .filter((sale) => sale.userId === userId),
-    )
+      .filter((sale) => sale.userId === userId))
 );
 
 const findById = async (id) => (
   getAll()
     .then((sales) => sales
-      .find((sale) => sale.id === id),
-    )
+      .find((sale) => sale.id === id))
 );
 
 const insertInSales = async ({ address, totalPrice, userId }) => (
-  getTable('sales')
-    .then((table) =>
-      table
-        .insert(['address', 'total_price', 'user_id'])
-        .values(address, totalPrice, userId)
-        .execute(),
-    )
-    .then(async ({ getAutoIncrementValue }) =>
-      findById(getAutoIncrementValue()),
-    )
+  connection()
+    .then((db) => db
+      .getTable('sales')
+      .execute())
+    .then((table) => table
+      .insert(['address', 'total_price', 'user_id'])
+      .values(address, totalPrice, userId)
+      .execute())
+    .then(async ({ getAutoIncrementValue }) => findById(getAutoIncrementValue()))
 );
 
 const insertInSalesProduct = async ({ saleId, products }) => (
-  products.map(async ({ productId, quantity }) =>
-    getTable('sales_products')
-      .then((table) =>
-        table
-          .insert(['sale_id', 'product_id', 'quantity'])
-          .values(saleId, productId, quantity)
-          .execute(),
-      ),
-  )
+  products.map(async ({ productId, quantity }) => connection()
+    .then((db) => db
+      .getTable('sales_products')
+      .execute())
+    .then((table) => table
+      .insert(['sale_id', 'product_id', 'quantity'])
+      .values(saleId, productId, quantity)
+      .execute()))
 );
 
 const create = async ({ address, price, userId, products }) => {
-  const order = await insertInSales({ address, price, userId });
+  const sale = await insertInSales({ address, price, userId });
   await insertInSalesProduct({ saleId: sale.id, products });
 
   return {
@@ -135,14 +127,15 @@ const update = async (id) => (
 );
 
 const remove = async (id) => (
-  getTable('sales')
-    .then((table) =>
-      table
-        .delete()
-        .where('id = :id')
-        .bind('id', id)
-        .execute(),
-    )
+  connection()
+    .then((db) => db
+      .getTable('sales')
+      .execute())
+    .then((table) => table
+      .delete()
+      .where('id = :id')
+      .bind('id', id)
+      .execute())
 );
 
 module.exports = {

@@ -1,5 +1,5 @@
+const boom = require('@hapi/boom');
 const models = require('../models');
-const boom = require('boom');
 
 const create = async ({ addressName, addressNumber, totalPrice, products, clientId }) => {
   const address = `${addressName}, numero: ${addressNumber}`;
@@ -14,7 +14,7 @@ const getAll = async ({ id, role }) => {
 const findById = async (id) => {
   const { address, ...ordersData } = await models.order.findById(id);
   return ordersData;
-}
+};
 
 const update = async ({ id, role }) => {
   if (role !== 'admin') {
@@ -22,7 +22,7 @@ const update = async ({ id, role }) => {
   }
   const { address, ...orderData } = await models.order.update(id);
   return orderData;
-}
+};
 
 module.exports = {
   create,
