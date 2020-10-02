@@ -69,6 +69,7 @@ function Register() {
         role,
       });
       const page = data.role === 'administrator' ? '/admin/orders' : '/products';
+      localStorage.setItem('user', JSON.stringify(data));
       setRedirectTo(page);
     } catch (err) {
       if (err.message === 'Request failed with status code 409') {

@@ -26,7 +26,9 @@ const registerUser = async (name, email, password, role = 'client') => {
 
   await userModel.registerUser(name, email, password, role);
 
-  return { name, email, password, role };
+  const { token } = generateJwt(name, email, password, role);
+
+  return { name, email, role, token };
 };
 
 // retorna o token do usuário logado
