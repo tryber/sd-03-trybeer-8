@@ -1,4 +1,5 @@
 require('dotenv').config();
+const path = require('path');
 const cors = require('cors');
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -6,6 +7,8 @@ const { userController, productController, loginController, profileController } 
 const { errorHandler } = require('./middlewares/errorHandle');
 
 const app = express();
+
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 app.use(cors({ origin: 'http://localhost:3000' }));
 app.use(bodyParser.json());
