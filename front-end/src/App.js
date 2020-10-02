@@ -8,9 +8,9 @@ import ProductsProvider from './contexts/ProductsContext';
 
 function App() {
   return (
-    <ProductsProvider>
-      <Router>
-        <Switch>
+    <Router>
+      <Switch>
+        <ProductsProvider>
           <Route exact path="/register">
             <SignupPage />
           </Route>
@@ -26,9 +26,9 @@ function App() {
           <Route exact path="/">
             <Login />
           </Route>
-        </Switch>
-      </Router>
-    </ProductsProvider>
+        </ProductsProvider>
+      </Switch>
+    </Router>
   );
 }
 

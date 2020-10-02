@@ -2,12 +2,14 @@ import React, { createContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import requestAPI from '../services/backEndAPI';
 
-export const ProductsContext = createContext(null);
+export const ProductsContext = createContext();
 
 ProductsContext.displayName = 'ProductsContext';
 
 const ProductsProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
+  const zero = 0;
+  const [cartTotalPrice, setCartTotalPrice] = useState(zero);
 
   const getProducts = async () => {
     try {
@@ -19,24 +21,30 @@ const ProductsProvider = ({ children }) => {
         return newProduct;
       });
       setProducts(responseQuantity);
+      localStorage.setItem('products', JSON.stringify(responseQuantity));
     } catch (e) {
       console.log(e.message);
     }
   };
 
+  const sumCartTotalPrice = (cart) => setCartTotalPrice(cart.reduce((acc, product) => acc + (product.price * product.quantity), zero));
+
   const addQuantity = (id) => {
     const newProducts = products;
     const index = newProducts.findIndex((product) => product.id === id);
     newProducts[index].quantity += 1;
-    setProducts(newProducts);
+    setProducts([...newProducts]);
+    localStorage.setItem('products', JSON.stringify([...newProducts]));
+    sumCartTotalPrice([...newProducts]);
   };
 
   const subQuantity = (id) => {
     const newProducts = products;
-    const zero = 0;
     const index = newProducts.findIndex((product) => product.id === id);
     if (newProducts[index].quantity > zero) newProducts[index].quantity -= 1;
-    setProducts(newProducts);
+    setProducts([...newProducts]);
+    localStorage.setItem('products', JSON.stringify([...newProducts]));
+    sumCartTotalPrice([...newProducts]);
   };
 
   const context = {
@@ -44,6 +52,9 @@ const ProductsProvider = ({ children }) => {
     getProducts,
     addQuantity,
     subQuantity,
+    setProducts,
+    cartTotalPrice,
+    sumCartTotalPrice,
   };
 
   return <ProductsContext.Provider value={ context }>{children}</ProductsContext.Provider>;

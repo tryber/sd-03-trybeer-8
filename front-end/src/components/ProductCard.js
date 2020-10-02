@@ -13,24 +13,23 @@ const ProductCard = ({
 }) => {
   const { addQuantity, subQuantity } = useContext(ProductsContext);
 
-  console.log(quantity);
 
   return (
     <div className="product-card">
-      <p data-testid={`${index}-product-price`} className="price">
-        {formatPrice(price)}
-      </p>
       <div className="product-image">
         <img data-testid={`${index}-product-img`} src={urlImage} alt={name} />
       </div>
+      <p data-testid={`${index}-product-price`} className="price">
+        {formatPrice(price)}
+      </p>
       <p data-testid={`${index}-product-name`} className="product-name">
         {name}
       </p>
-      <button type="button" onClick={() => addQuantity(id)}>
+      <button data-testid={`${index}-product-plus`} type="button" onClick={() => addQuantity(id)}>
         add
       </button>
-      <span>{quantity}</span>
-      <button type="button" onClick={() => subQuantity(id)}>
+      <span data-testid={`${index}-product-qtd`}>{quantity}</span>
+      <button data-testid={`${index}-product-minus`} type="button" onClick={() => subQuantity(id)}>
         sub
       </button>
     </div>

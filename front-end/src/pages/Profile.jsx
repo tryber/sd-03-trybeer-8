@@ -5,7 +5,6 @@ import axios from 'axios';
 import { useState } from 'react';
 
 const putLogin = async(name, email, setMessage) => {
-  console.log('cheguei aqui')
   try {
     const {
       data,

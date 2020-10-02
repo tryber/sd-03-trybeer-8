@@ -1,22 +1,31 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { Link, Redirect } from 'react-router-dom';
 import { ProductsContext } from '../contexts/ProductsContext';
 import ProductCard from '../components/ProductCard';
 import MenuTop from '../components/MenuTop';
-import { idText } from 'typescript';
+import { formatPrice } from '../utils/utils';
 
 const zero = 0;
 
 const Products = () => {
-  const { products, getProducts } = useContext(ProductsContext);
+  const { products, getProducts, setProducts, cartTotalPrice, sumCartTotalPrice } = useContext(ProductsContext);
+  const [isRedirect, setIsRedirect] = useState(false);
 
   useEffect(() => {
-    getProducts();
+    if (!JSON.parse(localStorage.getItem('products'))) {
+      getProducts();
+    } else {
+      setProducts(JSON.parse(localStorage.getItem('products')));
+      sumCartTotalPrice(JSON.parse(localStorage.getItem('products')));
+    }
+    if (!JSON.parse(localStorage.getItem('user'))) setIsRedirect(true);
   }, []);
 
-  if (products.length === zero) return <span>loading</span>;
+  if (isRedirect) return <Redirect to="/login" />;
+  if (!products || products.length === zero) return <span>loading</span>;
   return (
     <div>
-      <MenuTop title="Products" />
+      <MenuTop title="TryBeer" />
       <div className="cards">
         {products.map(({ id, name, price, urlImage, quantity }, index) => (
           <ProductCard
@@ -30,6 +39,12 @@ const Products = () => {
           />
         ))}
       </div>
+      <Link to='/checkout'>
+        <button type="button" data-testid="checkout-bottom-btn" disabled={!cartTotalPrice}>
+          Ver Carrinho
+        </button>
+      </Link>
+      <span data-testid="checkout-bottom-btn-value">{formatPrice(cartTotalPrice)}</span>
     </div>
   );
 };
