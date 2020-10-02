@@ -8,7 +8,7 @@
 
 .menu-top {
   background-color: black;
-  height: 80px;
+  height: 100px;
 }
 
 .menu {
@@ -60,10 +60,10 @@
 
 .app-name {
   color: white;
-  padding-top: 20px;
 }
 
 .hamburguer-input {
+  display: none;
 }
 
 .hamburguer-input:checked ~ label .menu {
