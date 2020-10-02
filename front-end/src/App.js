@@ -4,28 +4,31 @@ import SignupPage from './pages/Register';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
 import Products from './pages/Products';
+import ProductsProvider from './contexts/ProductsContext';
 
 function App() {
   return (
-    <Router>
-      <Switch>
-        <Route exact path="/register">
-          <SignupPage />
-        </Route>
-        <Route exact path="/login">
-          <Login />
-        </Route>
-        <Route exact path="/profile">
-          <Profile />
-        </Route>
-        <Route exact path="/products">
-          <Products />
-        </Route>
-        <Route exact path="/">
-          <Login />
-        </Route>
-      </Switch>
-    </Router>
+    <ProductsProvider>
+      <Router>
+        <Switch>
+          <Route exact path="/register">
+            <SignupPage />
+          </Route>
+          <Route exact path="/login">
+            <Login />
+          </Route>
+          <Route exact path="/profile">
+            <Profile />
+          </Route>
+          <Route exact path="/products">
+            <Products />
+          </Route>
+          <Route exact path="/">
+            <Login />
+          </Route>
+        </Switch>
+      </Router>
+    </ProductsProvider>
   );
 }
 
