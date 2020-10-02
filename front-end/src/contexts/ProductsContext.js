@@ -116,7 +116,7 @@ const ProductsProvider = ({ children }) => {
 };
 
 ProductsProvider.propTypes = {
-  children: PropTypes.objectOf(PropTypes.any).isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export { ProductsContext, ProductsProvider };

@@ -29,12 +29,12 @@ const ProductCard = ({ index, data: { name, price, urlImage } }) => (
 // <QuantityHandler index={ index } />
 
 ProductCard.propTypes = {
-  index: PropTypes.number,
-  data = {
-    name: PropTypes.string,
-    price: PropTypes.number,
-    urlImage: PropTypes.string,
-  }
+  index: PropTypes.number.isRequired,
+  data: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    urlImage: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default ProductCard;
