@@ -74,7 +74,11 @@ const update = rescue(async (req, res) => {
   return res.status(200).json(updatedOrder);
 });
 
-orderRouter.route('/').post(create).put(update).get(getAll);
+orderRouter
+  .route('/')
+  .post(create)
+  .put(update)
+  .get(getAll);
 
 orderRouter.route('/:id').get(findById);
 
