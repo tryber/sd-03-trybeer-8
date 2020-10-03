@@ -19,14 +19,14 @@ const MenuTop = ({ title }) => {
       </div>
     </label>
 
-    {isMenuActive ? (<ul className="btn-list">
+    {isMenuActive ? (<ul className="side-menu-container">
       <li>
         <Link to="/products" className="menu-btn" data-testid="side-menu-item-products">
           Produtos
         </Link>
       </li>
       <li>
-        <Link to="/" type="button" className="menu-btn" data-testid="side-menu-item-my-orders">
+        <Link to="/orders" type="button" className="menu-btn" data-testid="side-menu-item-my-orders">
           Meus Pedidos
         </Link>
       </li>
@@ -36,7 +36,7 @@ const MenuTop = ({ title }) => {
         </Link>
       </li>
       <li>
-        <Link to="/" type="button" className="menu-btn" data-testid="side-menu-item-logout">
+        <Link to="/login" type="button" className="menu-btn" data-testid="side-menu-item-logout">
           Sair
         </Link>
       </li>
