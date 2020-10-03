@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import requestAPI from '../services/backEndAPI';
 
@@ -47,6 +47,24 @@ const ProductsProvider = ({ children }) => {
     sumCartTotalPrice([...newProducts]);
   };
 
+  const deleteProduct = (id) => {
+    const newProducts = products;
+    const index = newProducts.findIndex((product) => product.id === id);
+    newProducts[index].quantity = 0;
+    setProducts([...newProducts]);
+    localStorage.setItem('products', JSON.stringify([...newProducts]));
+    sumCartTotalPrice([...newProducts]);
+  };
+
+  useEffect(() => {
+    if (!JSON.parse(localStorage.getItem('products'))) {
+      getProducts();
+    } else {
+      setProducts(JSON.parse(localStorage.getItem('products')));
+      sumCartTotalPrice(JSON.parse(localStorage.getItem('products')));
+    }
+  }, []);
+
   const context = {
     products,
     getProducts,
@@ -55,6 +73,7 @@ const ProductsProvider = ({ children }) => {
     setProducts,
     cartTotalPrice,
     sumCartTotalPrice,
+    deleteProduct,
   };
 
   return <ProductsContext.Provider value={ context }>{children}</ProductsContext.Provider>;

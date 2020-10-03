@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import Profile from './pages/Profile';
 import Products from './pages/Products';
 import ProductsProvider from './contexts/ProductsContext';
+import Checkout from './pages/Checkout';
 
 function App() {
   return (
@@ -22,6 +23,9 @@ function App() {
           </Route>
           <Route exact path="/products">
             <Products />
+          </Route>
+          <Route exact path="/checkout">
+            <Checkout />
           </Route>
           <Route exact path="/">
             <Login />

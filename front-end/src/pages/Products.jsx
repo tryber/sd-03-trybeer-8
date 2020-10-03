@@ -8,22 +8,16 @@ import { formatPrice } from '../utils/utils';
 const zero = 0;
 
 const Products = () => {
-  const { products, getProducts, setProducts, cartTotalPrice, sumCartTotalPrice } = useContext(
+  const { products, cartTotalPrice } = useContext(
     ProductsContext,
   );
-  const [isRedirect, setIsRedirect] = useState(false);
+  const [redirectTo, setRedirectTo] = useState('');
 
   useEffect(() => {
-    if (!JSON.parse(localStorage.getItem('products'))) {
-      getProducts();
-    } else {
-      setProducts(JSON.parse(localStorage.getItem('products')));
-      sumCartTotalPrice(JSON.parse(localStorage.getItem('products')));
-    }
-    if (!JSON.parse(localStorage.getItem('user'))) setIsRedirect(true);
+    if (!JSON.parse(localStorage.getItem('user'))) setRedirectTo('/login');
   }, []);
 
-  if (isRedirect) return <Redirect to="/login" />;
+  if (redirectTo) return <Redirect to={ redirectTo } />;
   if (!products || products.length === zero) return <span>loading</span>;
   return (
     <div>
