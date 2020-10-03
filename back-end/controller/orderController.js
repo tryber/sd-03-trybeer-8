@@ -1,6 +1,9 @@
 const rescue = require('express-rescue');
+const { Router } = require('express');
 const boom = require('@hapi/boom');
 const services = require('../services');
+
+const orderRouter = Router();
 
 const validateAddress = (addressName, addressNumber) => typeof addressName === 'string' && typeof addressNumber === 'string';
 
@@ -71,9 +74,8 @@ const update = rescue(async (req, res) => {
   return res.status(200).json(updatedOrder);
 });
 
-module.exports = {
-  create,
-  getAll,
-  findById,
-  update,
-};
+orderRouter.route('/').post(create).put(update).get(getAll);
+
+orderRouter.route('/:id').get(findById);
+
+module.exports = orderRouter;

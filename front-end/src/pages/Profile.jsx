@@ -1,18 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import MenuTop from '../components/MenuTop';
 import Footer from '../components/Footer';
-import axios from 'axios';
-import { useState } from 'react';
 
-const putLogin = async(name, email, setMessage) => {
+const putUser = async (name, email, setMessage) => {
   try {
-    const {
-      data,
-      status,
-    } = await axios.put('http://localhost:3001/profile', {
-      name,
-      email,
-    }, {headers: {'Authorization': JSON.parse(localStorage.getItem('user')).token}},);
+    const { status } = await axios.put(
+      'http://localhost:3001/profile',
+      {
+        name,
+        email,
+      },
+      { headers: { Authorization: JSON.parse(localStorage.getItem('user')).token } },
+    );
     const statusOk = 200;
     if (status === statusOk) {
       setMessage('Atualização concluída com sucesso');
@@ -20,7 +20,7 @@ const putLogin = async(name, email, setMessage) => {
   } catch (err) {
     setMessage(err.message);
   }
-}
+};
 
 const Profile = () => {
   const [userEmail, setUserEmail] = useState('');
@@ -54,7 +54,9 @@ const Profile = () => {
                       value={userName}
                       onChange={(e) => {
                         setUserName(e.target.value);
-                        setBtnIsDisabled(!(e.target.value.length > 12) && !(e.target.value !== inputUserName));
+                        setBtnIsDisabled(
+                          !(e.target.value.length > 12) && !(e.target.value !== inputUserName),
+                        );
                       }}
                       required
                     />
@@ -81,7 +83,7 @@ const Profile = () => {
                     data-testid="profile-save-btn"
                     profile-save-btn
                     className="btn_ok"
-                    onClick={() => putLogin(userName, userEmail, setMessage)}
+                    onClick={() => putUser(userName, userEmail, setMessage)}
                   >
                     Salvar
                   </button>
