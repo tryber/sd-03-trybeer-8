@@ -3,16 +3,8 @@ import PropTypes from 'prop-types';
 import { formatPrice } from '../utils/utils';
 import { ProductsContext } from '../contexts/ProductsContext';
 
-const ProductCard = ({
-  index,
-  id,
-  name,
-  price,
-  urlImage,
-  quantity,
-}) => {
+const ProductCard = ({ index, id, name, price, urlImage, quantity }) => {
   const { addQuantity, subQuantity } = useContext(ProductsContext);
-
 
   return (
     <div className="product-card">

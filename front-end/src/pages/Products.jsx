@@ -8,7 +8,9 @@ import { formatPrice } from '../utils/utils';
 const zero = 0;
 
 const Products = () => {
-  const { products, getProducts, setProducts, cartTotalPrice, sumCartTotalPrice } = useContext(ProductsContext);
+  const { products, getProducts, setProducts, cartTotalPrice, sumCartTotalPrice } = useContext(
+    ProductsContext,
+  );
   const [isRedirect, setIsRedirect] = useState(false);
 
   useEffect(() => {
@@ -39,7 +41,7 @@ const Products = () => {
           />
         ))}
       </div>
-      <Link to='/checkout'>
+      <Link to="/checkout">
         <button type="button" data-testid="checkout-bottom-btn" disabled={!cartTotalPrice}>
           Ver Carrinho
         </button>
