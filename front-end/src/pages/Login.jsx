@@ -4,16 +4,17 @@ import axios from 'axios';
 import '../style/Register.css';
 import Footer from '../components/Footer';
 
-const postLogin = async (email, password, setErrorMessage, setIsRedirect) => {
+const login = async (email, password, setErrorMessage, setIsRedirect) => {
   try {
     const {
       data,
       status,
-    } = await axios.post('http://localhost:3001/login', {
+    } = await axios.post('http://localhost:3001/users/login', {
       email,
       password,
     });
     const statusOk = 200;
+    console.log(data);
     if (status === statusOk) {
       localStorage.setItem('user', JSON.stringify(data));
       setIsRedirect({isRedirect: true, role: data.role});
@@ -114,7 +115,7 @@ const Login = () => {
                     type="button"
                     data-testid="signin-btn"
                     className="btn_ok"
-                    onClick={() => postLogin(email, password, setErrorMessage, setIsRedirect)}
+                    onClick={() => login(email, password, setErrorMessage, setIsRedirect)}
                   >
                     ENTRAR
                   </button>

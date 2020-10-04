@@ -22,24 +22,24 @@ const productLine = ({ quantity, name, price, id }, index, deleteProduct) => (
     </th>
   </tr>
 );
-address, products, setMessage, setRedirectTo
+// address, products, setMessage, setRedirectTo
 
 const postCheckout = async ({street, number}, products, { email }, setMessage, setRedirectTo) => {
-  try {
-    const { status } = await axios.post('http://localhost:3001/checkout', {
-      email,
-      total,
-      address: street,
-      number,
-      status: 'Pendente',
-    });
-    const statusOk = 200;
-    if (status === statusOk) {
-      setMessage('Atualização concluída com sucesso');
-    }
-  } catch (err) {
-    setMessage(err.message);
-  }
+  // try {
+  //   const { status } = await axios.post('http://localhost:3001/checkout', {
+  //     email,
+  //     total,
+  //     address: street,
+  //     number,
+  //     status: 'Pendente',
+  //   });
+  //   const statusOk = 200;
+  //   if (status === statusOk) {
+  //     setMessage('Atualização concluída com sucesso');
+  //   }
+  // } catch (err) {
+  //   setMessage(err.message);
+  // }
 };
 
 const Checkout = () => {

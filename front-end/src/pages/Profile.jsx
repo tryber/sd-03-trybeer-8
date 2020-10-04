@@ -6,7 +6,7 @@ import Footer from '../components/Footer';
 const putUser = async (name, email, setMessage) => {
   try {
     const { status } = await axios.put(
-      'http://localhost:3001/profile',
+      'http://localhost:3001/users',
       {
         name,
         email,

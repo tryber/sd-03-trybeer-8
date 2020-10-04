@@ -62,7 +62,7 @@ function Register() {
     e.preventDefault();
     const role = seller ? 'administrator' : 'client';
     try {
-      const { data } = await axios.post('http://localhost:3001/register', {
+      const { data } = await axios.post('http://localhost:3001/users', {
         name: name.text,
         email: email.text,
         password: password.text,

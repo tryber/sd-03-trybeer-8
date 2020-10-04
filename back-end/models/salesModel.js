@@ -87,7 +87,6 @@ const getSaleProducts = async (saleId) => {
     .bind(saleId)
     .execute();
   const products = await result.fetchAll();
-  console.log(products);
   return products.map(([id, name, price, urlImage, quantity]) => ({
     id,
     name,

@@ -7,7 +7,10 @@ const usersRouter = Router();
 usersRouter
   .route('/')
   .post(usersController.newUser)
-  .put(validateJWT, usersController.editUser)
-  .get(usersController.userLogin);
+  .put(validateJWT, usersController.editUser);
+
+usersRouter
+  .route('/login')
+  .post(usersController.userLogin);
 
 module.exports = usersRouter;
