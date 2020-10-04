@@ -15,7 +15,6 @@ const newUser = rescue(async (req, res, next) => {
 
 const userLogin = rescue(async (req, res) => {
   const { email, password } = req.body;
-  console.log(email, password);
   const user = await usersService.userLogin(email, password);
   if (user.message) {
     return res.status(401).json(user);
