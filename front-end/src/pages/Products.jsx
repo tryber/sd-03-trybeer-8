@@ -8,7 +8,7 @@ import { formatPrice } from '../utils/utils';
 const zero = 0;
 
 const Products = () => {
-  const { products, cartTotalPrice } = useContext(
+  const { products, cartTotalPrice, message } = useContext(
     ProductsContext,
   );
   const [redirectTo, setRedirectTo] = useState('');
@@ -41,6 +41,7 @@ const Products = () => {
         </button>
       </Link>
       <span data-testid="checkout-bottom-btn-value">{formatPrice(cartTotalPrice)}</span>
+      <span>{message}</span>
     </div>
   );
 };

@@ -10,6 +10,7 @@ const ProductsProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
   const zero = 0;
   const [cartTotalPrice, setCartTotalPrice] = useState(zero);
+  const [message, setMessage] = useState('');
 
   const getProducts = async () => {
     try {
@@ -74,6 +75,8 @@ const ProductsProvider = ({ children }) => {
     cartTotalPrice,
     sumCartTotalPrice,
     deleteProduct,
+    message,
+    setMessage,
   };
 
   return <ProductsContext.Provider value={ context }>{children}</ProductsContext.Provider>;

@@ -22,30 +22,44 @@ const productLine = ({ quantity, name, price, id }, index, deleteProduct) => (
     </th>
   </tr>
 );
-// address, products, setMessage, setRedirectTo
 
-const postCheckout = async ({street, number}, products, { email }, setMessage, setRedirectTo) => {
-  // try {
-  //   const { status } = await axios.post('http://localhost:3001/checkout', {
-  //     email,
-  //     total,
-  //     address: street,
-  //     number,
-  //     status: 'Pendente',
-  //   });
-  //   const statusOk = 200;
-  //   if (status === statusOk) {
-  //     setMessage('Atualização concluída com sucesso');
-  //   }
-  // } catch (err) {
-  //   setMessage(err.message);
-  // }
+const postCheckout = async (
+  { deliveryAddress, deliveryNumber },
+  products,
+  { token },
+  totalPrice,
+  setMessage,
+  setRedirectTo,
+) => {
+  try {
+    const productsCart = products.reduce((acc, { quantity, id }) => {
+      if (quantity !== 0) acc.push({ productId: id, quantity });
+      return acc;
+    }, []);
+    const { status } = await axios({
+      method: 'POST',
+      url: 'http://localhost:3001/sales',
+      data: {
+        totalPrice,
+        deliveryAddress,
+        deliveryNumber,
+        products: productsCart,
+      },
+      headers: { Authorization: token },
+    });
+    const statusOk = 201;
+    if (status === statusOk) {
+      setMessage('Compra realizada com sucesso!');
+      setRedirectTo('/products');
+    }
+  } catch (err) {
+    console.log(err.message);
+  }
 };
 
 const Checkout = () => {
-  const { products, cartTotalPrice, deleteProduct } = useContext(ProductsContext);
+  const { products, cartTotalPrice, deleteProduct, setMessage } = useContext(ProductsContext);
   const [redirectTo, setRedirectTo] = useState('');
-  const [message, setMessage] = useState('');
 
   const [address, setAddress] = useState({
     street: '',
@@ -58,7 +72,7 @@ const Checkout = () => {
     if (!user) setRedirectTo('/login');
   }, []);
 
-  if (redirectTo) return <Redirect to={ redirectTo } />;
+  if (redirectTo) return <Redirect to={redirectTo} />;
 
   const onChange = (e) => {
     setAddress({
@@ -80,20 +94,22 @@ const Checkout = () => {
       <input
         type="text"
         data-testid="checkout-street-input"
-        name="street"
+        name="deliveryAddress"
         onChange={(e) => onChange(e.target)}
       />
       <input
         type="text"
         data-testid="checkout-house-number-input"
-        name="number"
+        name="deliveryNumber"
         onChange={(e) => onChange(e.target)}
       />
       <button
         type="button"
         data-testid="checkout-finish-btn"
-        onClick={() => postCheckout(address, products, user, setMessage, setRedirectTo)}
-        disabled={cart.length === 0 || !address.street || !address.number}
+        onClick={() =>
+          postCheckout(address, products, user, cartTotalPrice, setMessage, setRedirectTo)
+        }
+        disabled={cart.length === 0 || !address.deliveryAddress || !address.deliveryNumber}
       >
         Finalizar Pedido
       </button>
