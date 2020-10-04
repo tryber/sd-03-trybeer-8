@@ -1,4 +1,4 @@
-const { userModel } = require('../models');
+const { usersModel } = require('../models');
 const { generateJwt } = require('../middlewares/auth');
 
 // Referência regex para validação de email:
@@ -24,9 +24,9 @@ const registerUser = async (name, email, password, role = 'client') => {
 
   if (typeof isEntriesValid === 'object') return isEntriesValid;
 
-  await userModel.registerUser(name, email, password, role);
+  const id = await usersModel.registerUser(name, email, password, role);
 
-  const { token } = generateJwt(name, email, password, role);
+  const { token } = generateJwt({ id, name, email, password, role });
 
   return { name, email, role, token };
 };
@@ -35,7 +35,7 @@ const registerUser = async (name, email, password, role = 'client') => {
 const userLogin = async (email, password) => {
   if (!email || !password) return { message: 'All fields must be filled' };
 
-  const user = await userModel.getUserByEmail(email);
+  const user = await usersModel.getUserByEmail(email);
 
   if (!user || user.password !== password) return { message: 'Incorrect username or password' };
 
@@ -46,4 +46,14 @@ const userLogin = async (email, password) => {
   return { name, email, role, token };
 };
 
-module.exports = { registerUser, userLogin };
+const editUser = async (name, email) => {
+  const user = await usersModel.getUserByEmail(email);
+
+  if (user.email !== email) return { message: 'Invalid email', code: '409' };
+
+  await usersModel.editUser(name, email);
+
+  return { name, email };
+};
+
+module.exports = { registerUser, userLogin, editUser };

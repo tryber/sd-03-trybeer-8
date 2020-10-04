@@ -11,11 +11,14 @@ const getUserByEmail = async (email) => connection().then((db) => db
     id ? { id, name, email: userEmail, password, role } : 'usuário não encontrado'
   ));
 
-const registerUser = async (name, email, password, role) => connection().then((db) => db
-  .getTable('users')
-  .insert(['name', 'email', 'password', 'role'])
-  .values(name, email, password, role)
-  .execute());
+const registerUser = async (name, email, password, role) => {
+  const newUser = await connection().then((db) => db
+    .getTable('users')
+    .insert(['name', 'email', 'password', 'role'])
+    .values(name, email, password, role)
+    .execute());
+  return newUser.getAutoIncrementValue();
+};
 
 const editUser = async (name, email) => connection().then((db) => db.getTable('users')
   .update()

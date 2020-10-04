@@ -1,16 +1,19 @@
 const { salesModel } = require('../models');
 
-/*
-retorna id, total_price, delivery_address, delivery_number, sale_date, status por padrão
-é Pendente mas também pode ser Entregue
-*/
-const checkoutSales = async (id, total, address, number, date, status = 'Pendente', productId, quantity) => {
-  const sale = await salesModel.postSale(id, total, address, number, date, status);
-  console.log(sale);
-  await salesModel.postSaleProducts(productId, quantity);
-  return { id, total, address, number, date, status, productId, quantity };
-};
+const newSale = async (data, userId, date) => salesModel.postSale(data, userId, date);
+
+const newSaleProduct = async (product, saleId) => salesModel.postSaleProduct(product, saleId);
+
+const getAllSales = async () => salesModel.getAllSales();
+
+const getSaleById = async (id) => salesModel.getSaleById(id);
+
+const getSaleProducts = async (id) => salesModel.getSaleProducts(id);
 
 module.exports = {
-  checkoutSales,
+  newSale,
+  newSaleProduct,
+  getAllSales,
+  getSaleById,
+  getSaleProducts,
 };

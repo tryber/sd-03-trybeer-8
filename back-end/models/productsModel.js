@@ -4,7 +4,7 @@ const getAll = async () => (
   connection()
     .then((db) => db
       .getTable('products')
-      .select(['id', 'name', 'price', 'url_image'])
+      .select()
       .execute())
     .then((results) => results.fetchAll())
     .then((products) => (
@@ -17,13 +17,6 @@ const getAll = async () => (
     ))
 );
 
-// const findById = async (id) => (
-//   getAll()
-//     .then((products) => products
-//       .find((product) => product.id === id))
-// );
-
 module.exports = {
   getAll,
-  // findById,
 };
