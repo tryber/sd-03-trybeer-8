@@ -1,9 +1,10 @@
 require('dotenv').config();
+const path = require('path');
 const cors = require('cors');
 const express = require('express');
 const bodyParser = require('body-parser');
-const { userController, productController, loginController, profileController, saleController, orderController } = require('./controller');
-const { errorHandler } = require('./middlewares/errorHandle');
+const { productsRouter, usersRouter, salesRouter } = require('./routes');
+const { errorHandler } = require('./middlewares/errorHandler');
 
 const app = express();
 
@@ -11,12 +12,10 @@ app.use(cors({ origin: 'http://localhost:3000' }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use('/products', productController);
-app.use('/register', userController);
-app.use('/login', loginController);
-app.use('/profile', profileController);
-app.use('/checkout', saleController);
-app.use('/orders', orderController);
+app.use('/images', express.static(path.join(__dirname, 'images')));
+app.use('/products', productsRouter);
+app.use('/users', usersRouter);
+app.use('/sales', salesRouter);
 
 app.use(errorHandler);
 

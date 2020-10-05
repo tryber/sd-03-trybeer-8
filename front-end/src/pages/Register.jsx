@@ -62,13 +62,14 @@ function Register() {
     e.preventDefault();
     const role = seller ? 'administrator' : 'client';
     try {
-      const { data } = await axios.post('http://localhost:3001/register', {
+      const { data } = await axios.post('http://localhost:3001/users', {
         name: name.text,
         email: email.text,
         password: password.text,
         role,
       });
       const page = data.role === 'administrator' ? '/admin/orders' : '/products';
+      localStorage.setItem('user', JSON.stringify(data));
       setRedirectTo(page);
     } catch (err) {
       if (err.message === 'Request failed with status code 409') {
