@@ -10,10 +10,13 @@ const getSaleById = async (id) => salesModel.getSaleById(id);
 
 const getSaleProducts = async (id) => salesModel.getSaleProducts(id);
 
+const markAsDelivered = async (id) => salesModel.markAsDelivered(id);
+
 module.exports = {
   newSale,
   newSaleProduct,
   getAllSales,
   getSaleById,
   getSaleProducts,
+  markAsDelivered,
 };

@@ -11,6 +11,7 @@ import MyOrders from './pages/MyOrders';
 import OrderDetails from './pages/OrderDetails';
 import AdminOrders from './pages/AdminOrders';
 import AdminProfile from './pages/AdminProfile';
+import AdminOrderDetails from './pages/AdminOrderDetails';
 
 function App() {
   return (
@@ -33,10 +34,13 @@ function App() {
           <Route exact path="/orders/:id">
             <OrderDetails />
           </Route>
+          <Route exact path="/admin/orders/:id">
+            <AdminOrderDetails />
+          </Route>
+          <Route exact path="/admin/orders">
+            <AdminOrders />
+          </Route>
         </Switch>
-        <Route exact path="/admin/orders">
-          <AdminOrders />
-        </Route>
       </OrdersProvider>
       <Switch>
         <Route exact path="/register">

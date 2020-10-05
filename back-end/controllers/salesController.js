@@ -23,11 +23,16 @@ const getSaleDetails = rescue(async (req, res, next) => {
   const sale = await salesService.getSaleById(id);
   const products = await salesService.getSaleProducts(id);
 
-  if (req.user.id !== sale.userId) {
+  if (req.user.role !== 'administrator' && req.user.id !== sale.userId) {
     return next({ message: 'User does not have access to that sale', code: 401 });
   }
 
   return res.status(200).json({ ...sale, products });
 });
 
-module.exports = { newSale, getAllSales, getSaleDetails };
+const markAsDelivered = rescue(async (req, res) => {
+  await salesService.markAsDelivered(req.body.id);
+  return res.status(200).json({ message: 'Success' });
+});
+
+module.exports = { newSale, getAllSales, getSaleDetails, markAsDelivered };
