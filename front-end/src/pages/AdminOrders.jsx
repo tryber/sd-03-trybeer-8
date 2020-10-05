@@ -14,11 +14,10 @@ const AdminOrders = () => {
   }, []);
 
   if (redirectTo) return <Redirect to={ redirectTo } />;
-  if (orders.length === 0) return <span>Loading</span>;
   return (
     <div>
       <AdminMenu />
-      {orders.map((order, index) => <AdminOrderCard key={ order.id } order={ order } index={ index } />)}
+      {(orders.length !== 0) ? orders.map((order, index) => <AdminOrderCard key={ order.id } order={ order } index={ index } />) : ''}
     </div>
   );
 };
