@@ -34,6 +34,9 @@ function App() {
             <OrderDetails />
           </Route>
         </Switch>
+        <Route exact path="/admin/orders">
+          <AdminOrders />
+        </Route>
       </OrdersProvider>
       <Switch>
         <Route exact path="/register">
@@ -44,9 +47,6 @@ function App() {
         </Route>
         <Route exact path="/profile">
           <Profile />
-        </Route>
-        <Route exact path="/admin/orders">
-          <AdminOrders />
         </Route>
         <Route exact path="/admin/profile">
           <AdminProfile />
