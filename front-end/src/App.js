@@ -9,21 +9,11 @@ import OrdersProvider from './contexts/OrdersContext';
 import Checkout from './pages/Checkout';
 import MyOrders from './pages/MyOrders';
 import OrderDetails from './pages/OrderDetails';
+import AdminOrders from './pages/AdminOrders';
 
 function App() {
   return (
     <Router>
-      <Switch>
-        <Route exact path="/register">
-          <SignupPage />
-        </Route>
-        <Route exact path="/login">
-          <Login />
-        </Route>
-        <Route exact path="/profile">
-          <Profile />
-        </Route>
-      </Switch>
       <ProductsProvider>
         <Switch>
           <Route exact path="/products">
@@ -45,6 +35,18 @@ function App() {
         </Switch>
       </OrdersProvider>
       <Switch>
+        <Route exact path="/register">
+          <SignupPage />
+        </Route>
+        <Route exact path="/login">
+          <Login />
+        </Route>
+        <Route exact path="/profile">
+          <Profile />
+        </Route>
+        <Route exact path="/admin/orders">
+          <AdminOrders />
+        </Route>
         <Route exact path="/">
           <Login />
         </Route>
