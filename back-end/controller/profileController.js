@@ -14,9 +14,12 @@ const editUser = rescue(async (req, res, next) => {
     return next(editedUser);
   }
 
+<<<<<<< HEAD
   // const { id, password: usersecret, ...user } = editedUser;
   // const userWithToken = { ...user, token };
 
+=======
+>>>>>>> 0378fcaab498d5de67deb09d5667e8fdacb12024
   res.status(200).json(editedUser);
 });
 

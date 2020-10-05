@@ -10,6 +10,9 @@ ReactDOM.render(
   document.getElementById('root'),
 <<<<<<< HEAD
 );
+<<<<<<< HEAD
 =======
 );
 >>>>>>> 416142b399cfbe8cfa42e8b35cba3b04317dd319
+=======
+>>>>>>> 0378fcaab498d5de67deb09d5667e8fdacb12024
