@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
-import '../style/Register.css';
+import '../style/Login.css';
 import Footer from '../components/Footer';
 
 const login = async (email, password, setErrorMessage, setIsRedirect) => {
@@ -70,18 +70,18 @@ const Login = () => {
   };
   return (
     <div>
-      <div className="body">
-        <div className="body_form">
+      <div className="body2">
+        <div className="body_form2">
           <center>
-            <h1 className="text-center">TRYBEER</h1>
+            <h1 className="text-center2">TRYBEER</h1>
             <h2>LOGIN</h2>
-            <div className="div_form">
-              <form className="form">
+            <div className="div_form2">
+              <form className="form2">
                 <div className="form-group">
-                  <label htmlFor="email" className="txt_label">
-                    Email
+                  <label htmlFor="email" className="txt_label2">
+                    Email <br />
                     <input
-                      className="ipt_form"
+                      className="ipt_form2"
                       placeholder="Email"
                       type="text"
                       data-testid="email-input"
@@ -90,14 +90,14 @@ const Login = () => {
                       onChange={(e) => onChange(e.target)}
                       required
                     />
-                  </label>
-                  <span>{emailMessage}</span>
+                  </label><br />
+                  <span className="txt_alert">{emailMessage}</span>
                 </div>
                 <div className="form-group">
-                  <label htmlFor="password" className="txt_label">
-                    Password
+                  <label htmlFor="password" className="txt_label2">
+                    Password <br />
                     <input
-                      className="ipt_form"
+                      className="ipt_form2"
                       placeholder="Senha"
                       type="password"
                       data-testid="password-input"
@@ -106,23 +106,24 @@ const Login = () => {
                       onChange={(e) => onChange(e.target)}
                       required
                     />
-                  </label>
-                  <span>{passwordMessage}</span>
+                  </label><br />
+                  <span className="txt_alert">{passwordMessage}</span>
                 </div>
-                <div className="div_btn">
+                <div className="div_btn2">
                   <button
                     disabled={btnIsDisabled}
                     type="button"
                     data-testid="signin-btn"
-                    className="btn_ok"
+                    className="btn_ok2"
                     onClick={() => login(email, password, setErrorMessage, setIsRedirect)}
                   >
                     ENTRAR
                   </button>
-                  <span>{errorMessage}</span>
+                  <br />
+                  <span className="txt_alert">{errorMessage}</span>
                 </div>
-                <div className="div_btn">
-                  <Link to="/register" data-testid="no-account-btn" className="btn_ok">
+                <div className="div_btn3">
+                  <Link to="/register" data-testid="no-account-btn" className="btn_ok3">
                     Ainda não tenho conta
                   </Link>
                 </div>
