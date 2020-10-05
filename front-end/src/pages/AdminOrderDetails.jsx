@@ -24,7 +24,7 @@ const getOrderProducts = async (id, setOrderDetails) => {
 const postAsDelivered = async (id, orderDetails, setOrderDetails) => {
   const { token } = JSON.parse(localStorage.getItem('user')) || {};
   try {
-    const { data, status } = await axios({
+    const { status } = await axios({
       method: 'PUT',
       url: `http://localhost:3001/sales/${id}/delivered`,
       data: { id },
