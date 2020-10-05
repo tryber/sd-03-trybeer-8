@@ -10,6 +10,7 @@ import Checkout from './pages/Checkout';
 import MyOrders from './pages/MyOrders';
 import OrderDetails from './pages/OrderDetails';
 import AdminOrders from './pages/AdminOrders';
+import AdminProfile from './pages/AdminProfile';
 
 function App() {
   return (
@@ -46,6 +47,9 @@ function App() {
         </Route>
         <Route exact path="/admin/orders">
           <AdminOrders />
+        </Route>
+        <Route exact path="/admin/profile">
+          <AdminProfile />
         </Route>
         <Route exact path="/">
           <Login />
