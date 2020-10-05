@@ -96,10 +96,18 @@ const getSaleProducts = async (saleId) => {
   }));
 };
 
+const markAsDelivered = async (id) => connection().then((db) => db.getTable('sales')
+  .update()
+  .set('status', 'Entregue')
+  .where('id = :id')
+  .bind('id', id)
+  .execute());
+
 module.exports = {
   postSale,
   postSaleProduct,
   getAllSales,
   getSaleById,
   getSaleProducts,
+  markAsDelivered,
 };

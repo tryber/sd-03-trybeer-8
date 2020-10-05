@@ -11,4 +11,6 @@ salesRouter
 
 salesRouter.route('/:id').get(validateJWT, salesController.getSaleDetails);
 
+salesRouter.route('/:id/delivered').put(validateJWT, salesController.markAsDelivered);
+
 module.exports = salesRouter;
