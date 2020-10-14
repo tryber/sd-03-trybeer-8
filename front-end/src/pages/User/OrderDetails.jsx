@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import { DateTime } from 'luxon';
-import MenuTop from '../components/MenuTop';
-import { formatPrice } from '../utils/utils';
+import MenuTop from '../../components/MenuTop';
+import { formatPrice } from '../../utils/utils';
 
 const getOrderProducts = async (id, setOrderDetails) => {
   const { token } = JSON.parse(localStorage.getItem('user')) || {};

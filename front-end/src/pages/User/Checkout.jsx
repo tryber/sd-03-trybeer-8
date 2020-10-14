@@ -1,9 +1,9 @@
 import React, { useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
-import { ProductsContext } from '../contexts/ProductsContext';
-import Header from '../components/MenuTop';
-import { formatPrice } from '../utils/utils';
+import { ProductsContext } from '../../contexts/ProductsContext';
+import Header from '../../components/MenuTop';
+import { formatPrice } from '../../utils/utils';
 
 const productLine = ({ quantity, name, price, id }, index, deleteProduct) => (
   <tr>

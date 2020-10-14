@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import MenuTop from '../components/MenuTop';
-import Footer from '../components/Footer';
+import MenuTop from '../../components/MenuTop';
+import Footer from '../../components/Footer';
 
 const putUser = async (name, email, setMessage) => {
   try {

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
-import '../style/Login.css';
-import Footer from '../components/Footer';
+import '../../style/Login.css';
+import Footer from '../../components/Footer';
 
 const login = async (email, password, setErrorMessage, setIsRedirect) => {
   try {
@@ -14,7 +14,6 @@ const login = async (email, password, setErrorMessage, setIsRedirect) => {
       password,
     });
     const statusOk = 200;
-    console.log(data);
     if (status === statusOk) {
       localStorage.setItem('user', JSON.stringify(data));
       setIsRedirect({isRedirect: true, role: data.role});

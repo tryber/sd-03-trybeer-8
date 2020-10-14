@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import { ProductsContext } from '../contexts/ProductsContext';
-import ProductCard from '../components/ProductCard';
-import MenuTop from '../components/MenuTop';
-import { formatPrice } from '../utils/utils';
+import { ProductsContext } from '../../contexts/ProductsContext';
+import ProductCard from '../../components/ProductCard';
+import MenuTop from '../../components/MenuTop';
+import { formatPrice } from '../../utils/utils';
 
 const zero = 0;
 
