@@ -1,5 +1,5 @@
 .body2 {
-  background-color: #1f8dd6;
+  background: linear-gradient(to right, #f2994a, #f2c94c);
   height: 95%;
   left: 0;
   overflow: hidden;
@@ -10,7 +10,7 @@
 
 .body_form2 {
   background-color: #00000012;
-  border: 1px solid rgba(255, 255, 255, 0.631);
+  border: 1px solid rgba(0, 0, 0, 0.631);
   border-radius: 5px;
   height: 60%;
   margin: 0 auto;
@@ -43,7 +43,7 @@
 }
 
 .txt_label2 {
-  color: white;
+  color: black;
   font-size: 18px;
   letter-spacing: 0.05em;
 }
@@ -54,25 +54,25 @@
 }
 
 .txt_seller2 {
-  color: white;
+  color: black;
   font-size: 16px;
   letter-spacing: 0.05em;
 }
 
 h1, h2 {
-  color: white;
+  color: black;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   text-shadow: rgba(0, 0, 0, 0.268) 0.1em 0.1em 0.2em
 }
 
 h2 {
-  color: #ffffffe9;
+  color: black;
   font-weight: 100;
   letter-spacing: 0.05em;
 }
 
 .btn_ok2 {
-  background-color: rgba(255, 255, 255, 0.816);
+  background-color: rgba(0, 0, 0, 0.816);
   border: 0;
   border-radius: 5px;
   color: #1f8dd6;
@@ -85,7 +85,7 @@ h2 {
 }
 
 .btn_ok2:hover {
-  background-color: #ffffff;
+  background-color: black;
   border: none transparent;
   border-radius: 5px;
   box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.1);
@@ -111,7 +111,7 @@ h2 {
 }
 
 .btn_ok3 {
-  color: white;
+  color: black;
   margin-top: 10px;
 }
 

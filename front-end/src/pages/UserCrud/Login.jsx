@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
-import '../../style/Login.css';
+// import '../../style/Login.css';
 import Footer from '../../components/Footer';
 
 const login = async (email, password, setErrorMessage, setIsRedirect) => {

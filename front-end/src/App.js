@@ -1,17 +1,17 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import SignupPage from './pages/Login/Register';
-import Login from './pages/Login/Login';
-import UserProfile from './pages/User/UserProfile';
-import Products from './pages/User/Products';
+import SignupPage from './pages/UserCrud/Register';
+import Login from './pages/UserCrud/Login';
+import UserProfile from './pages/UserCrud/UserProfile';
+import Products from './pages/UserProducts/Products';
 import ProductsProvider from './contexts/ProductsContext';
 import OrdersProvider from './contexts/OrdersContext';
-import Checkout from './pages/User/Checkout';
-import MyOrders from './pages/User/MyOrders';
-import OrderDetails from './pages/User/OrderDetails';
-import AdminOrders from './pages/Admin/AdminOrders';
-import AdminProfile from './pages/Admin/AdminProfile';
-import AdminOrderDetails from './pages/Admin/AdminOrderDetails';
+import Checkout from './pages/UserProducts/Checkout';
+import MyOrders from './pages/UserProducts/MyOrders';
+import OrderDetails from './pages/UserProducts/OrderDetails';
+import AdminOrders from './pages/AdminProducts/AdminOrders';
+import AdminProfile from './pages/UserCrud/AdminProfile';
+import AdminOrderDetails from './pages/AdminProducts/AdminOrderDetails';
 
 function App() {
   return (

@@ -1,8 +1,8 @@
 import React, { useEffect, useContext } from 'react';
 import { OrdersContext } from '../../contexts/OrdersContext';
-import Auth from '../../components/utils/Auth';
+import Auth from '../../utils/Auth';
 import Header from '../../components/MenuTop';
-import OrderCard from '../../components/OrderCard';
+import OrderCard from './components/OrderCard';
 
 const MyOrders = () => {
   const { orders, getOrders } = useContext(OrdersContext);

@@ -16,7 +16,6 @@ const ProductsProvider = ({ children }) => {
     try {
       const { token } = JSON.parse(localStorage.getItem('user')) || {};
       const response = await requestAPI('GET', '/products', null, token);
-      console.log(response);
       const responseQuantity = response.data.map((product) => {
         const newProduct = product;
         newProduct.quantity = 0;

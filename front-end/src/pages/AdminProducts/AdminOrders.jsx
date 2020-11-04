@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Redirect } from 'react-router-dom';
-import AdminMenu from '../../components/AdminMenu';
+import AdminMenu from './components/AdminMenu';
 import { OrdersContext } from '../../contexts/OrdersContext';
-import AdminOrderCard from '../../components/AdminOrderCard';
+import AdminOrderCard from './components/AdminOrderCard';
 
 const AdminOrders = () => {
   const { orders, getOrders } = useContext(OrdersContext);

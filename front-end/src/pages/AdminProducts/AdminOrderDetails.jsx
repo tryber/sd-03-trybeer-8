@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Redirect } from 'react-router-dom';
 import axios from 'axios';
-import AdminMenu from '../../components/AdminMenu';
+import AdminMenu from './components/AdminMenu';
 import { formatPrice } from '../../utils/utils';
 
 const getOrderProducts = async (id, setOrderDetails) => {
