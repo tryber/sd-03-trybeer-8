@@ -1,17 +1,17 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import SignupPage from './pages/Register';
-import Login from './pages/Login';
-import Profile from './pages/Profile';
-import Products from './pages/Products';
+import SignupPage from './pages/UserCrud/Register';
+import Login from './pages/UserCrud/Login';
+import UserProfile from './pages/UserCrud/UserProfile';
+import Products from './pages/UserProducts/Products';
 import ProductsProvider from './contexts/ProductsContext';
 import OrdersProvider from './contexts/OrdersContext';
-import Checkout from './pages/Checkout';
-import MyOrders from './pages/MyOrders';
-import OrderDetails from './pages/OrderDetails';
-import AdminOrders from './pages/AdminOrders';
-import AdminProfile from './pages/AdminProfile';
-import AdminOrderDetails from './pages/AdminOrderDetails';
+import Checkout from './pages/UserProducts/Checkout';
+import MyOrders from './pages/UserProducts/MyOrders';
+import OrderDetails from './pages/UserProducts/OrderDetails';
+import AdminOrders from './pages/AdminProducts/AdminOrders';
+import AdminProfile from './pages/UserCrud/AdminProfile';
+import AdminOrderDetails from './pages/AdminProducts/AdminOrderDetails';
 
 function App() {
   return (
@@ -50,7 +50,7 @@ function App() {
           <Login />
         </Route>
         <Route exact path="/profile">
-          <Profile />
+          <UserProfile />
         </Route>
         <Route exact path="/admin/profile">
           <AdminProfile />

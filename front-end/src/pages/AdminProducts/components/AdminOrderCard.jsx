@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { formatPrice } from '../utils/utils';
+import { formatPrice } from '../../../utils/utils';
 
 const AdminOrderCard = ({ order: { totalPrice, id, deliveryAddress, deliveryNumber, status }, index }) => (
   <Link to={`/admin/orders/${id}`} data-testid={ `${index}-order-card-container` }>

@@ -1,4 +1,6 @@
-.footer {
+import styled from 'styled-components';
+
+const Footer = styled.section`
   background-color: black;
   bottom: 0;
   color: white;
@@ -9,4 +11,6 @@
   position: absolute;
   text-align: center;
   width: 100%;
-}
+`;
+
+export default Footer;

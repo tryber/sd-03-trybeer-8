@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import { DateTime } from 'luxon';
-import MenuTop from '../components/MenuTop';
-import { formatPrice } from '../utils/utils';
+import MenuTop from '../../components/MenuTop';
+import { formatPrice } from '../../utils/utils';
+import Auth from '../../utils/Auth';
 
 const getOrderProducts = async (id, setOrderDetails) => {
   const { token } = JSON.parse(localStorage.getItem('user')) || {};
@@ -24,18 +25,15 @@ const getOrderProducts = async (id, setOrderDetails) => {
 
 const OrderDetails = () => {
   const [orderDetails, setOrderDetails] = useState(false);
-  const [redirectTo, setRedirectTo] = useState('');
   const { id } = useParams();
 
   useEffect(() => {
     getOrderProducts(id, setOrderDetails);
-    if (!JSON.parse(localStorage.getItem('user'))) setRedirectTo('/login');
   }, []);
 
-  if (redirectTo) return <Redirect to={ redirectTo } />;
   if (!orderDetails) return <span>Loading...</span>;
   return (
-    <div>
+    <Auth>
       <MenuTop title="Detalhes do Pedido" />
       <h4 data-testid="order-number">{`Pedido ${id}`}</h4>
       <span data-testid="order-date">{DateTime.fromMillis(orderDetails.date).toFormat('dd/LL')}</span>
@@ -49,7 +47,7 @@ const OrderDetails = () => {
         ))}
       </ul>
       <span data-testid="order-total-value">{formatPrice(orderDetails.totalPrice)}</span>
-    </div>
+    </Auth>
   );
 };
 

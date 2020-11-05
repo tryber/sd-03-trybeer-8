@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
-import '../style/Login.css';
-import Footer from '../components/Footer';
+import UserForm from './styles/UserForm.js';
+import Footer from '../../components/Footer';
+import { Fragment } from 'react';
 
 const login = async (email, password, setErrorMessage, setIsRedirect) => {
   try {
@@ -14,7 +15,6 @@ const login = async (email, password, setErrorMessage, setIsRedirect) => {
       password,
     });
     const statusOk = 200;
-    console.log(data);
     if (status === statusOk) {
       localStorage.setItem('user', JSON.stringify(data));
       setIsRedirect({isRedirect: true, role: data.role});
@@ -69,19 +69,18 @@ const Login = () => {
     return <Redirect to="/admin/orders" />
   };
   return (
-    <div>
-      <div className="body2">
-        <div className="body_form2">
+    <Fragment>
+        <UserForm>
           <center>
-            <h1 className="text-center2">TRYBEER</h1>
+            <h1 className="text-center">TRYBEER</h1>
             <h2>LOGIN</h2>
-            <div className="div_form2">
-              <form className="form2">
+            <div className="div_form">
+              <form className="form">
                 <div className="form-group">
                   <label htmlFor="email" className="txt_label2">
                     Email <br />
                     <input
-                      className="ipt_form2"
+                      className="ipt_form"
                       placeholder="Email"
                       type="text"
                       data-testid="email-input"
@@ -94,10 +93,10 @@ const Login = () => {
                   <span className="txt_alert">{emailMessage}</span>
                 </div>
                 <div className="form-group">
-                  <label htmlFor="password" className="txt_label2">
+                  <label htmlFor="password" className="txt_label">
                     Password <br />
                     <input
-                      className="ipt_form2"
+                      className="ipt_form"
                       placeholder="Senha"
                       type="password"
                       data-testid="password-input"
@@ -109,12 +108,12 @@ const Login = () => {
                   </label><br />
                   <span className="txt_alert">{passwordMessage}</span>
                 </div>
-                <div className="div_btn2">
+                <div className="div_btn">
                   <button
                     disabled={btnIsDisabled}
                     type="button"
                     data-testid="signin-btn"
-                    className="btn_ok2"
+                    className="btn_ok"
                     onClick={() => login(email, password, setErrorMessage, setIsRedirect)}
                   >
                     ENTRAR
@@ -122,18 +121,17 @@ const Login = () => {
                   <br />
                   <span className="txt_alert">{errorMessage}</span>
                 </div>
-                <div className="div_btn3">
-                  <Link to="/register" data-testid="no-account-btn" className="btn_ok3">
+                <div className="div_btn2">
+                  <Link to="/register" data-testid="no-account-btn" className="btn_ok2">
                     Ainda não tenho conta
                   </Link>
                 </div>
               </form>
             </div>
           </center>
-        </div>
-      </div>
+        </UserForm>
       <Footer />
-    </div>
+    </Fragment>
   );
 };
 

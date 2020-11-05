@@ -1,7 +1,7 @@
 import React from 'react';
 import { DateTime } from 'luxon';
 import { Link } from 'react-router-dom';
-import { formatPrice } from '../utils/utils';
+import { formatPrice } from '../../../utils/utils';
 
 const OrderCard = ({ order: { date, totalPrice, id }, index }) => (
   <Link to={`/orders/${id}`} data-testid={ `${index}-order-card-container` }>

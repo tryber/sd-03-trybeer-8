@@ -1,12 +1,15 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, Fragment } from 'react';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
-import { ProductsContext } from '../contexts/ProductsContext';
-import Header from '../components/MenuTop';
-import { formatPrice } from '../utils/utils';
+import { ProductsContext } from '../../contexts/ProductsContext';
+import Header from '../../components/MenuTop';
+import Footer from '../../components/Footer';
+import Line from './styles/ProductLine';
+import { formatPrice } from '../../utils/utils';
+import Orders from './styles/OrdersComponent';
 
 const productLine = ({ quantity, name, price, id }, index, deleteProduct) => (
-  <tr>
+  <Line>
     <th data-testid={`${index}-product-qtd-input`}>{quantity}</th>
     <th data-testid={`${index}-product-name`}>{name}</th>
     <th data-testid={`${index}-product-total-value`}>{formatPrice(quantity * price)}</th>
@@ -17,10 +20,10 @@ const productLine = ({ quantity, name, price, id }, index, deleteProduct) => (
         type="button"
         onClick={() => deleteProduct(id)}
       >
-        X
+        <i className="material-icons">clear</i>
       </button>
     </th>
-  </tr>
+  </Line>
 );
 
 const postCheckout = async (
@@ -87,33 +90,43 @@ const Checkout = () => {
   }, []);
 
   return (
-    <div>
+    <Fragment>
       <Header title="Finalizar Pedido" />
-      <table>{cart.length === 0 ? 'Não há produtos no carrinho' : cart}</table>
-      <span data-testid="order-total-value">{formatPrice(cartTotalPrice)}</span>
-      <input
-        type="text"
-        data-testid="checkout-street-input"
-        name="deliveryAddress"
-        onChange={(e) => onChange(e.target)}
-      />
-      <input
-        type="text"
-        data-testid="checkout-house-number-input"
-        name="deliveryNumber"
-        onChange={(e) => onChange(e.target)}
-      />
-      <button
-        type="button"
-        data-testid="checkout-finish-btn"
-        onClick={() =>
-          postCheckout(address, products, user, cartTotalPrice, setMessage, setRedirectTo)
-        }
-        disabled={cart.length === 0 || !address.deliveryAddress || !address.deliveryNumber}
-      >
-        Finalizar Pedido
-      </button>
-    </div>
+      <Orders>
+        {cart.length === 0 ? 'Não há produtos no carrinho' : <table> {cart} </table>}
+        <span className="total-price" data-testid="order-total-value">Total: {formatPrice(cartTotalPrice)}</span>
+        <div>
+          Rua:
+          <input
+            type="text"
+            data-testid="checkout-street-input"
+            name="deliveryAddress"
+            className="ipt_form"
+            onChange={(e) => onChange(e.target)}
+          />
+        </div>
+        <span>Número: </span>
+        <input
+          type="text"
+          data-testid="checkout-house-number-input"
+          className="ipt_form"
+          name="deliveryNumber"
+          onChange={(e) => onChange(e.target)}
+        />
+        <button
+          type="button"
+          data-testid="checkout-finish-btn"
+          className="btn_ok"
+          onClick={() =>
+            postCheckout(address, products, user, cartTotalPrice, setMessage, setRedirectTo)
+          }
+          disabled={cart.length === 0 || !address.deliveryAddress || !address.deliveryNumber}
+        >
+          Finalizar Pedido
+        </button>
+      </Orders>
+      <Footer />
+    </Fragment>
   );
 };
 

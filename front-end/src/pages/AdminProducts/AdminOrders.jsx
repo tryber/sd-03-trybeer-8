@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Redirect } from 'react-router-dom';
-import { OrdersContext } from '../contexts/OrdersContext';
-import Header from '../components/MenuTop';
-import OrderCard from '../components/OrderCard';
+import AdminMenu from './components/AdminMenu';
+import { OrdersContext } from '../../contexts/OrdersContext';
+import AdminOrderCard from './components/AdminOrderCard';
 
-const MyOrders = () => {
+const AdminOrders = () => {
   const { orders, getOrders } = useContext(OrdersContext);
   const [redirectTo, setRedirectTo] = useState('');
 
@@ -14,13 +14,12 @@ const MyOrders = () => {
   }, []);
 
   if (redirectTo) return <Redirect to={ redirectTo } />;
-  if (orders.length === 0) return <span>Loading</span>;
   return (
     <div>
-      <Header title="Meus Pedidos" />
-      {orders.map((order, index) => <OrderCard key={ order.id } order={ order } index={ index } />)}
+      <AdminMenu />
+      {(orders.length !== 0) ? orders.map((order, index) => <AdminOrderCard key={ order.id } order={ order } index={ index } />) : ''}
     </div>
   );
 };
 
-export default MyOrders;
+export default AdminOrders;

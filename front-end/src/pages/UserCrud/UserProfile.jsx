@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import axios from 'axios';
-import MenuTop from '../components/MenuTop';
-import Footer from '../components/Footer';
+import MenuTop from '../../components/MenuTop';
+import Footer from '../../components/Footer';
+import UserForm from './styles/UserForm.js';
 
 const putUser = async (name, email, setMessage) => {
   try {
@@ -35,9 +36,9 @@ const Profile = () => {
     setInputUserName(name);
   }, []);
   return (
-    <div>
-      <div className="body">
-        <MenuTop title="Meu perfil" />
+    <Fragment>
+      <MenuTop title="Meu perfil" />
+      <UserForm>
         <div className="body_form">
           <center>
             <div className="div_form">
@@ -93,9 +94,9 @@ const Profile = () => {
             </div>
           </center>
         </div>
-      </div>
+      </UserForm>
       <Footer />
-    </div>
+    </Fragment>
   );
 };
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import '../style/MenuTop.css';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import Menu from './styles/MenuTop';
 
 const logout = () => {
   localStorage.removeItem('user');
@@ -32,7 +32,7 @@ const renderClientList = () => (
     <li>
       <Link
         to="/login"
-        onClick={ () => logout() }
+        onClick={() => logout()}
         className="menu-btn"
         data-testid="side-menu-item-logout"
       >
@@ -45,27 +45,27 @@ const renderClientList = () => (
 const MenuTop = ({ title }) => {
   const [isMenuActive, setIsMenuActive] = useState(false);
   return (
-    <div className="menu-top">
+    <Menu>
       <center>
         <h1 className="app-name" data-testid="top-title">
           {title}
         </h1>
       </center>
-      <input
-        id="hamburguer-input"
-        className="hamburguer-input"
-        data-testid="top-hamburguer"
-        type="checkbox"
-        onChange={() => setIsMenuActive(!isMenuActive)}
-      />
       <label htmlFor="hamburguer-input">
-        <div className="menu">
-          <span className="hamburguer" />
+        <input
+          id="hamburguer-input"
+          className="hamburguer-input"
+          data-testid="top-hamburguer"
+          type="checkbox"
+          onChange={ () => setIsMenuActive(!isMenuActive) }
+        />
+        <div className={ isMenuActive ? 'menu menuChecked' : 'menu' }>
+          <span className={ isMenuActive ? 'hamburguerChecked hamburguer' : 'hamburguer' } />
         </div>
       </label>
 
       {isMenuActive ? renderClientList() : ''}
-    </div>
+    </Menu>
   );
 };
 

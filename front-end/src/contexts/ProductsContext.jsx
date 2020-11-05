@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import requestAPI from '../services/backEndAPI';
+import requestAPI from '../utils/axiosRequest';
 
 export const ProductsContext = createContext();
 
