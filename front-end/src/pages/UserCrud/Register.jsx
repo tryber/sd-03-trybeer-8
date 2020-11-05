@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import Footer from '../../components/Footer';
-// import '../../style/Register.css';
+import UserForm from './styles/UserForm.js';
 
 function Register() {
   const [name, setName] = useState({ text: '', verif: false });
@@ -83,8 +83,8 @@ function Register() {
   if (redirectTo !== '/') return <Redirect to={ redirectTo } />;
 
   return (
-    <div>
-      <div className="body">
+    <Fragment>
+      <UserForm>
         <div className="body_form">
           <center>
             <h1 className="text-center">
@@ -163,9 +163,9 @@ function Register() {
           </center>
           <p className="text-muted">{error}</p>
         </div>
-      </div>
+      </UserForm>
       <Footer />
-    </div>
+    </Fragment>
   );
 }
 

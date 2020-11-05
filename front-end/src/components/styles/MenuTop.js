@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const ProductsFooter = styled.section`
+const MenuTop = styled.section`
   position: fixed;
   background-color: black;
   height: 80px;
@@ -103,4 +103,4 @@ const ProductsFooter = styled.section`
   }
 `;
 
-export default ProductsFooter;
+export default MenuTop;

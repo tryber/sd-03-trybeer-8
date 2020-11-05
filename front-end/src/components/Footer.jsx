@@ -1,5 +1,6 @@
 import React from 'react';
+import FooterStyle from './styles/Footer';
 
-const Footer = () => <div className="footer">TRYBEER 2020</div>;
+const Footer = () => <FooterStyle>TRYBEER 2020</FooterStyle>;
 
 export default Footer;
