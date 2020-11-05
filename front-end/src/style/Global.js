@@ -11,6 +11,9 @@ const Background = createGlobalStyle`
   body {
     background-color: #f2c94c;
   }
+  button:focus {
+    outline: none;
+  }
 `;
 
 export default Background;

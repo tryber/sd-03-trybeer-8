@@ -2,29 +2,30 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { ProductsContext } from '../../contexts/ProductsContext';
 import ProductCard from './components/ProductCard';
+import Auth from '../../utils/Auth';
 import MenuTop from '../../components/MenuTop';
 import { formatPrice } from '../../utils/utils';
 import CardsContainer from './styles/CardsContainer';
 import ProductsFooter from './styles/ProductsFooter';
-import ProductsSkeleton from './components/ProductsSkeleton';
+import CardSkeleton from './components/CardSkeleton';
 
 const zero = 0;
 
+const renderSkeleton = (count) => {
+  const skeleton = [];
+  for (let i = 0; i < count; i++) skeleton.push(<CardSkeleton />);
+  return skeleton;
+}
+
 const Products = () => {
   const { products, cartTotalPrice, message } = useContext(ProductsContext);
-  const [redirectTo, setRedirectTo] = useState('');
-
-  useEffect(() => {
-    if (!JSON.parse(localStorage.getItem('user'))) setRedirectTo('/login');
-  }, []);
-
-  if (redirectTo) return <Redirect to={redirectTo} />;
-  if (!products || products.length === zero) return <ProductsSkeleton />;
   return (
-    <div>
+    <Auth>
       <MenuTop title="TryBeer" />
       <CardsContainer>
-        {products.map(({ id, name, price, urlImage, quantity }, index) => (
+        {(!products || products.length === zero) ?
+          renderSkeleton(11)
+          : products.map(({ id, name, price, urlImage, quantity }, index) => (
           <ProductCard
             key={id}
             index={index}
@@ -45,7 +46,7 @@ const Products = () => {
         <span data-testid="checkout-bottom-btn-value">Preço total: {formatPrice(cartTotalPrice)}</span>
         <span>{message}</span>
       </ProductsFooter>
-    </div>
+    </Auth>
   );
 };
 
